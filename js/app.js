@@ -2,26 +2,26 @@
 
 // Function prints rows
 function printRows(id) {
-    const game = document.getElementById("game");
-    var tr = document.createElement("tr");
-    game.appendChild(tr);
-    // div.classList.add("field");
-    tr.id = `tr${id}`;
-  }
-  
+  const game = document.getElementById("game");
+  var tr = document.createElement("tr");
+  game.appendChild(tr);
+  // div.classList.add("field");
+  tr.id = `tr${id}`;
+  printColumns(`tr${id}`); // Passing row id 
+}
 
 //   //Funstion rints columns
-//   function printColumns(id) {
-//     const tr = document.getElementById(`tr${id}`);
-//     var tr = document.createElement("td");
-//     game.appendChild(tr);
-//     // div.classList.add("field");
-//     // div.id = id;
-//   }
-
+function printColumns(trId) {
   for (let i = 0; i < 7; i++) {
-    printRows(i);  
-
+    const tr = document.getElementById(trId);
+    console.log(tr);
+    var td = document.createElement("td");
+    tr.appendChild(td);
+    
+    td.id = `td${i}`;
   }
+}
 
-//   printColumns()
+for (let i = 0; i < 7; i++) {
+  printRows(i);
+}
