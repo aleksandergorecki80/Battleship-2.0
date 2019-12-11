@@ -1,7 +1,26 @@
-/* #board {
-    position: relative;
-    width: 1024px;
-    height: 863px;
-    margin: auto;
-    background: url("../img/board.jpg") no-repeat;
-} */
+body {
+    background-color: black;
+}
+#board {
+ margin: 0 auto;
+ width: 50%;
+}
+
+#game tr td{
+
+        cursor: pointer;
+        border: 1px solid white;
+        padding: 2em;
+}
+#game {
+    border: 1px solid red;
+}
+
+.miss {
+    background: url("../img/miss.png") no-repeat center center;
+    padding: 3px;
+}
+
+.hit {
+    background: url("../img/ship.png") no-repeat center center;
+}
