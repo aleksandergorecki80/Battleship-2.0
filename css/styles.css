@@ -1,5 +1,5 @@
 body {
-    background-color: black;
+    background-color: grey;
 }
 #board {
  margin: 0 auto;
@@ -23,4 +23,8 @@ body {
 
 .hit {
     background: url("../img/ship.png") no-repeat center center;
+}
+
+.marked {
+    background-color: coral;
 }
