@@ -56,13 +56,13 @@ function SingleShip() {
   this.addNewShip = function() {
     this.ship.row = Math.floor(Math.random() * 10);
     this.ship.column = Math.floor(Math.random() * 10);
-    this.ship.push({ row: this.ship.row, column: this.ship.column });
+    this.ship.push({ id: 1, row: this.ship.row, column: this.ship.column });
     this.markTheField();
   };
 
   this.markTheField = function() {
-    this.ship.forEach(id => {
-      document.getElementById(`${id.row}-${id.column}`).classList.add("marked");
+    this.ship.forEach(cellId => {
+      document.getElementById(`${cellId.row}-${cellId.column}`).classList.add("marked");
     });
   };
 }
@@ -72,83 +72,71 @@ function DoubleShip() {
 
   // Function determins next move 0-right 1-down 2-left 3-up
   this.nextMoveDirection = function() {
-    return Math.floor(Math.random() * 4);
+    const moveDirection = Math.floor(Math.random() * 4);
+    console.log(moveDirection);
+    this.nextMove(moveDirection);
   };
 
   // Function checks if next move is posible
-  this.isNextMovePosible = function() {
-    console.log(this.ship);
-    // const direction = this.nextMoveDirection();
-    const direction = 0;
-    console.log(direction);
-    switch (direction) {
-      case 0:
-        console.log(this.ship.row);
-        if((this.ship.column+1)<10){
-          this.ship.push({row: this.ship.row, column: this.ship.column+1});
-          this.markTheField();
-        } else {
-          // tu wróć do losowania pola
-        };
-        break;
-      case 1:
-        //
-        break;
-      case 2:
-        //
-        break;
-      case 3:
-        //
-        break;
-    }
-    // return move <= 10 && move >= 0;
-  };
-
-  // // Function adds a new field to an egzisting ship
-  // this.addNewFieldToTheShip = function(direction) {
-  //   console.log(`we go to ${direction}`)
-  //   console.log(this.ship);
-  //   switch (direction) {
-  //     case 0:
-  //       //
-  //       break;
-  //     case 1:
-  //       //
-  //       break;
-  //     case 2:
-  //       //
-  //       break;
-  //     case 3:
-  //       //
-  //       break;
-  //   }
-  // };
-
-  //Function makes a next move
+  // this.nextMove = function(direction) {
   this.nextMove = function() {
-    const nextMoveDirectionIs = this.nextMoveDirection();
-    
-    while(!this.isNextMovePosible(nextMoveDirectionIs))
-    {
+    console.log(this.ship[0].column);
+    for(let i=0; i<2; i++){
+      console.log('kki');
+      const direction = 0;
+      
+      switch (direction) {
+        case 0:
+          if (this.ship.column + 1 < 10) {
 
+            this.ship.push({ id: this.ship[i].id+1, row: this.ship[i].row, column: this.ship[i].column + 1 });
+            this.markTheField();
+          } else {
+             this.nextMoveDirection();
+          }
+          break;
+        case 1:
+          if (this.ship.row + 1 <= 9) {
+            this.ship.push({ id:2, row: this.ship.row + 1, column: this.ship.column });
+            this.markTheField();
+          } else {
+            this.nextMoveDirection();
+          }
+          break;
+        case 2:
+          if (this.ship.column - 1 >= 0) {
+            this.ship.push({ id:2, row: this.ship.row, column: this.ship.column - 1 });
+            this.markTheField();
+          } else {
+            this.nextMoveDirection();
+          }
+          break;
+        case 3:
+          if (this.ship.row - 1 >= 0) {
+            this.ship.push({ id:2, row: this.ship.row - 1, column: this.ship.column });
+            this.markTheField();
+          } else {
+            this.nextMoveDirection();
+          }
+          break;
+      }
     }
-    return this.isNextMovePosible(nextMoveDirectionIs);
-    // isMovePosible ? this.addNewFieldToTheShip(nextMoveDirectionIs) : this.nextMoveDirection();
+        
   };
 }
 
 const firstSingleShip = new SingleShip();
 firstSingleShip.addNewShip();
 
+
+
 const firstDoubleShip = new DoubleShip();
 firstDoubleShip.addNewShip();
-firstDoubleShip.isNextMovePosible();
-// console.log(firstDoubleShip.nextMove());
+firstDoubleShip.nextMoveDirection();
 
-// const nextMoveDirectionIs = firstDoubleShip.nextMoveDirection();
-// console.log(nextMoveDirectionIs);
-// console.log(firstDoubleShip.isNextMovePosible(nextMoveDirectionIs));
+// const moveDirection = firstDoubleShip.nextMoveDirection();
 
-// console.log(nextMoveDirectionIs);
-// console.log(isNextMovePosible(11));
-// console.log(row, column);
+// firstDoubleShip.nextMove(moveDirection);
+
+// console.log(moveDirection);
+console.log(firstDoubleShip.ship);
