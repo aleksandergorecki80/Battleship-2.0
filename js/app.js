@@ -71,20 +71,15 @@ function DoubleShip() {
   SingleShip.call(this);
 
   // Function determins next move 0-right 1-down 2-left 3-up
-  this.nextMoveDirection = function() {
+  this.nextMoveDirection = function(numberOfMoves) {
     const moveDirection = Math.floor(Math.random() * 4);
     console.log(moveDirection);
-    this.nextMove(moveDirection);
+    this.nextMove(moveDirection, numberOfMoves);
   };
 
   // Function checks if next move is posible
-  // this.nextMove = function(direction) {
-  this.nextMove = function() {
-    console.log(this.ship[0].column);
-    for(let i=0; i<2; i++){
-      console.log('kki');
-      const direction = 0;
-      
+  this.nextMove = function(direction, numberOfMoves) {
+    for(let i=0; i<numberOfMoves; i++){
       switch (direction) {
         case 0:
           if (this.ship.column + 1 < 10) {
@@ -97,7 +92,7 @@ function DoubleShip() {
           break;
         case 1:
           if (this.ship.row + 1 <= 9) {
-            this.ship.push({ id:2, row: this.ship.row + 1, column: this.ship.column });
+            this.ship.push({ id:2, row: this.ship[i].row + 1, column: this.ship[i].column });
             this.markTheField();
           } else {
             this.nextMoveDirection();
@@ -105,7 +100,7 @@ function DoubleShip() {
           break;
         case 2:
           if (this.ship.column - 1 >= 0) {
-            this.ship.push({ id:2, row: this.ship.row, column: this.ship.column - 1 });
+            this.ship.push({ id:2, row: this.ship[i].row, column: this.ship[i].column - 1 });
             this.markTheField();
           } else {
             this.nextMoveDirection();
@@ -113,7 +108,7 @@ function DoubleShip() {
           break;
         case 3:
           if (this.ship.row - 1 >= 0) {
-            this.ship.push({ id:2, row: this.ship.row - 1, column: this.ship.column });
+            this.ship.push({ id:2, row: this.ship[i].row - 1, column: this.ship[i].column });
             this.markTheField();
           } else {
             this.nextMoveDirection();
@@ -125,18 +120,33 @@ function DoubleShip() {
   };
 }
 
+function TripleShip(){
+  DoubleShip.call(this);
+}
+
+function QuadrupleShip(){
+  DoubleShip.call(this);
+}
+
+const quadrupleShip = new QuadrupleShip();
+quadrupleShip.addNewShip();
+quadrupleShip.nextMoveDirection(3);
+
+const firstTripleShip = new TripleShip();
+firstTripleShip.addNewShip();
+firstTripleShip.nextMoveDirection(2);
+const secondTripleShip = new TripleShip();
+secondTripleShip.addNewShip();
+secondTripleShip.nextMoveDirection(2);
+
+const firstDoubleShip = new DoubleShip();
+firstDoubleShip.addNewShip();
+firstDoubleShip.nextMoveDirection(1);
+
 const firstSingleShip = new SingleShip();
 firstSingleShip.addNewShip();
 
 
-
-const firstDoubleShip = new DoubleShip();
-firstDoubleShip.addNewShip();
-firstDoubleShip.nextMoveDirection();
-
-// const moveDirection = firstDoubleShip.nextMoveDirection();
-
-// firstDoubleShip.nextMove(moveDirection);
-
-// console.log(moveDirection);
-console.log(firstDoubleShip.ship);
+console.log('First triple ship is ', firstTripleShip.ship);
+console.log('First double ship is ', firstDoubleShip.ship);
+console.log('First single ship is ', firstSingleShip.ship);

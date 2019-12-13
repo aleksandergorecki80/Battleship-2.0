@@ -2,7 +2,7 @@ body {
     background-color: grey;
 }
 #board {
- margin: 0 auto;
+ /* margin: 0 auto; */
  width: 50%;
 }
 
