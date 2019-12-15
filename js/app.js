@@ -93,52 +93,52 @@ function DoubleShip() {
   };
 
   // Check if a move is posible
-  this.checkMove = function(direction, previousField) {
+  this.checkMove = function(direction, previousArrPosition) {
       switch (direction) {
       case 0:
-        return this.ship[previousField].column + 1 < 10;
+        return this.ship[previousArrPosition].column + 1 < 10;
         break;
       case 1:
-        return this.ship[previousField].row + 1 < 10;
+        return this.ship[previousArrPosition].row + 1 < 10;
         break;
       case 2:
-        return this.ship[previousField].column - 1 >= 0;
+        return this.ship[previousArrPosition].column - 1 >= 0;
         break;
       case 3:
-        return this.ship[previousField].row - 1 >= 0;
+        return this.ship[previousArrPosition].row - 1 >= 0;
         break;
     }
   };
 
-  this.addNewField = function(direction, previousField){
+  this.addNewField = function(direction, previousArrPosition){
       switch (direction) {
       case 0:
         return [...this.ship, {
-          id: this.ship[previousField].id + 1, 
-          row: this.ship[previousField].row, 
-          column: this.ship[previousField].column + 1
+          id: this.ship[previousArrPosition].id + 1, 
+          row: this.ship[previousArrPosition].row, 
+          column: this.ship[previousArrPosition].column + 1
         
         }];
         break;
       case 1:
         return [...this.ship, {
-          id: this.ship[previousField].id + 1, 
-          row: this.ship[previousField].row - 1, 
-          column: this.ship[previousField].column
+          id: this.ship[previousArrPosition].id + 1, 
+          row: this.ship[previousArrPosition].row - 1, 
+          column: this.ship[previousArrPosition].column
         }];
         break;
       case 2:
         return [...this.ship, {
-          id: this.ship[previousField].id + 1, 
-          row: this.ship[previousField].row, 
-          column: this.ship[previousField].column - 1
+          id: this.ship[previousArrPosition].id + 1, 
+          row: this.ship[previousArrPosition].row, 
+          column: this.ship[previousArrPosition].column - 1
         }];
         break;
       case 3:
         return [...this.ship, {
-          id: this.ship[previousField].id + 1, 
-          row: this.ship[previousField].row - 1, 
-          column: this.ship[previousField].column
+          id: this.ship[previousArrPosition].id + 1, 
+          row: this.ship[previousArrPosition].row - 1, 
+          column: this.ship[previousArrPosition].column
         }];
         break;
     }
@@ -161,26 +161,37 @@ function DoubleShip() {
 // secondTripleShip.nextMoveDirection(2);
 
 // // 2
-const firstDoubleShip = new DoubleShip();
-
-firstDoubleShip.addNewShip();
 
 
+const firstDoubleShip = new DoubleShip();             // initialisation of double ship
+firstDoubleShip.addNewShip();                         //  starting new ship
 
-let nextMove = false;
-if(!nextMove){
-  console.log('i cand marc it')
-  const direction = firstDoubleShip.choseDirection();
-  console.log("Direction =", direction);
-  nextMove = firstDoubleShip.checkMove(direction, 0);
-  console.log(nextMove);
-}
-  else{
-    firstDoubleShip.markTheField(newField);
-}
+const direction = firstDoubleShip.choseDirection();    // choosing diration of marking
+console.log("Direction =", direction);
 
 
-const newField = firstDoubleShip.addNewField(0,0);
+let nextMove = false;                                 // checking if move is possible
+nextMove = firstDoubleShip.checkMove(direction, 0);
+console.log('next move is ', nextMove);
+
+const newField = firstDoubleShip.addNewField(direction, 0);   // Adding new field to array
+firstDoubleShip.markTheField(newField);                       // marking the ship
+console.log(nextMove);
+
+// let nextMove = false;
+// if(!nextMove){
+//   console.log('i cand marc it')
+//   const direction = firstDoubleShip.choseDirection();
+
+//   nextMove = firstDoubleShip.checkMove(direction, 0);
+//   console.log(nextMove);
+// }
+//   else{
+//     firstDoubleShip.markTheField(newField);
+// }
+
+
+
 console.log(newField);
 
 
