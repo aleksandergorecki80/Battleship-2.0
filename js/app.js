@@ -18,6 +18,7 @@ function printColumns(trId) {
     tr.appendChild(td);
 
     td.id = `${trId}-${i}`;
+    td.innerHTML = `${trId}-${i}`; // to do usunięcia
   }
 }
 
@@ -61,22 +62,20 @@ function SingleShip() {
   this.buildNewShip = function() {
     this.ship.row = Math.floor(Math.random() * 10);
     this.ship.column = Math.floor(Math.random() * 10);
-    console.log("Starting point", this.ship.column, this.ship.row);
     return [{ id: 1, row: this.ship.row, column: this.ship.column }];
   };
 
+  this.addNewShip = function() {
+    this.ship = this.buildNewShip();
+  };
+
+  //    funkcja zaznacza statek na planszy - do wywalenia
   this.markTheField = function(newField) {
-    console.log("newField in mark new field", newField);
     newField.forEach(cellId => {
       document
         .getElementById(`${cellId.row}-${cellId.column}`)
         .classList.add("marked");
     });
-  };
-  this.addNewShip = function() {
-    this.ship = this.buildNewShip();
-
-    console.log(this.ship);
   };
 }
 
@@ -107,6 +106,7 @@ function DoubleShip() {
     }
   };
 
+  // Adding a next field to a existing ship
   this.addNewField = function(direction, previousArrPosition) {
     switch (direction) {
       case 0:
@@ -151,6 +151,16 @@ function DoubleShip() {
         break;
     }
   };
+
+  // Updating a ship
+  this.updateShip = function(updatedShip) {
+    this.ship = updatedShip;
+  };
+}
+
+// Triple ship
+function TripleShip() {
+  DoubleShip.call(this);
 }
 
 //  4
@@ -163,50 +173,51 @@ function DoubleShip() {
 // firstTripleShip.addNewShip();
 // firstTripleShip.nextMoveDirection(2);
 
-//  // 3
-// const secondTripleShip = new TripleShip();
-// secondTripleShip.addNewShip();
-// secondTripleShip.nextMoveDirection(2);
+//     ---  TRIPLE SHIP    ---
+function addingTripleShipsToTheGrid() {
+  const tripleShip = new TripleShip(); // initialisation of double ship
+  tripleShip.addNewShip(); //  starting new ship
 
-// // 2
+  for (let i = 0; i < 2; i++) {
+    let nextMove = false;
+    let direction = "";
+    while (!nextMove) {
+      direction = tripleShip.choseDirection(); // choosing diration of marking
+      nextMove = tripleShip.checkMove(direction, i); // checking if move is possible
+    }
 
-const firstDoubleShip = new DoubleShip(); // initialisation of double ship
-firstDoubleShip.addNewShip(); //  starting new ship
+    const newField = tripleShip.addNewField(direction, i); // Adding new field to array
+    tripleShip.updateShip(newField);
+    tripleShip.markTheField(newField); // marking the ship
+  }
 
-const direction = firstDoubleShip.choseDirection(); // choosing diration of marking
-console.log("Direction =", direction);
+  console.log(tripleShip.ship);
+}
+addingTripleShipsToTheGrid();
 
-let nextMove = false; // checking if move is possible
-nextMove = firstDoubleShip.checkMove(direction, 0);
-console.log("next move is ", nextMove);
+// //     ---  DOUBLE SHIP    ---
+function addingDoubleShipsToTheGrid() {
+  const firstDoubleShip = new DoubleShip(); // initialisation of double ship
+  firstDoubleShip.addNewShip(); //  starting new ship
 
-const newField = firstDoubleShip.addNewField(direction, 0); // Adding new field to array
-firstDoubleShip.markTheField(newField); // marking the ship
-console.log(nextMove);
+  let nextMove = false;
+  let direction = "";
+  while (!nextMove) {
+    direction = firstDoubleShip.choseDirection(); // choosing diration of marking
+    nextMove = firstDoubleShip.checkMove(direction, 0); // checking if move is possible
+  }
 
-// let nextMove = false;
-// if(!nextMove){
-//   console.log('i cand marc it')
-//   const direction = firstDoubleShip.choseDirection();
+  const newField = firstDoubleShip.addNewField(direction, 0); // Adding new field to array
+  firstDoubleShip.updateShip(newField);
+  firstDoubleShip.markTheField(newField); // marking the ship
+  console.log(firstDoubleShip.ship);
+}
+addingDoubleShipsToTheGrid();
 
-//   nextMove = firstDoubleShip.checkMove(direction, 0);
-//   console.log(nextMove);
+// //    ---  SINGLE SHIP ---
+// function addingSingleShipsToTheGrid() {
+//   const singleShip = new SingleShip(); // initialisation of single ship
+//   singleShip.addNewShip();
+//   singleShip.markTheField(singleShip.ship);
 // }
-//   else{
-//     firstDoubleShip.markTheField(newField);
-// }
-
-console.log(newField);
-
-// // 1
-// const firstSingleShip = new SingleShip();
-// firstSingleShip.addNewShip();
-
-// console.log('Quadruple ship is ', quadrupleShip.ship);
-// console.log('First triple ship is ', firstTripleShip.ship);
-// console.log('Second triple ship is ', secondTripleShip.ship);
-// console.log('First double ship is ', firstDoubleShip.ship);
-// console.log('First single ship is ', firstSingleShip.ship);
-
-// Adding taken fields to the grid
-// view.markFieldsAsTaken(firstSingleShip.ship);
+// addingSingleShipsToTheGrid();
