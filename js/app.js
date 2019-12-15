@@ -27,6 +27,12 @@ for (let i = 0; i < 10; i++) {
 }
 
 const view = {
+  boardFieldsTaken: [],
+
+  markFieldsAsTaken: function(object) {
+    // console.log(object);
+  },
+
   displayMessage: function(msg) {
     const messageArea = document.getElementById("messageArea");
     messageArea.innerHTML = msg;
@@ -46,107 +52,147 @@ view.displayMessage("This is a testing message");
 view.displayHit("3-3");
 view.displayMiss("6-4");
 
-// Ships
+
+//              ------    Ships section     --------------
+// Single Ships
 
 function SingleShip() {
-  // this.row = row;
-  // this.column = column;
-  this.ship = [];
+   this.ship = [];
 
-  this.addNewShip = function() {
-    this.ship.row = Math.floor(Math.random() * 10);
-    this.ship.column = Math.floor(Math.random() * 10);
-    this.ship.push({ id: 1, row: this.ship.row, column: this.ship.column });
-    this.markTheField();
+  this.buildNewShip = function() {
+    this.ship.row = 9;
+    // this.ship.row = Math.floor(Math.random() * 10);
+    // this.ship.column = Math.floor(Math.random() * 10);
+    this.ship.column = 9;
+    console.log("Starting point", this.ship.column, this.ship.row);
+    return [{ id: 1, row: this.ship.row, column: this.ship.column }];
   };
 
-  this.markTheField = function() {
-    this.ship.forEach(cellId => {
-      document.getElementById(`${cellId.row}-${cellId.column}`).classList.add("marked");
+  this.markTheField = function(newField) {
+    console.log('newField in mark new field', newField);
+    newField.forEach(cellId => {
+      document
+        .getElementById(`${cellId.row}-${cellId.column}`)
+        .classList.add("marked");
     });
+  };
+  this.addNewShip = function() {
+    this.ship = this.buildNewShip();
+    
+    console.log(this.ship);
   };
 }
 
+// Double ship
 function DoubleShip() {
   SingleShip.call(this);
 
   // Function determins next move 0-right 1-down 2-left 3-up
-  this.nextMoveDirection = function(numberOfMoves) {
-    const moveDirection = Math.floor(Math.random() * 4);
-    console.log(moveDirection);
-    this.nextMove(moveDirection, numberOfMoves);
+  this.choseDirection = function() {
+    return Math.floor(Math.random() * 4);
   };
 
-  // Function checks if next move is posible
-  this.nextMove = function(direction, numberOfMoves) {
-    for(let i=0; i<numberOfMoves; i++){
+  // Check if a move is posible
+  this.checkMove = function(direction, previousField) {
       switch (direction) {
-        case 0:
-          if (this.ship.column + 1 < 10) {
-
-            this.ship.push({ id: this.ship[i].id+1, row: this.ship[i].row, column: this.ship[i].column + 1 });
-            this.markTheField();
-          } else {
-             this.nextMoveDirection();
-          }
-          break;
-        case 1:
-          if (this.ship.row + 1 <= 9) {
-            this.ship.push({ id:2, row: this.ship[i].row + 1, column: this.ship[i].column });
-            this.markTheField();
-          } else {
-            this.nextMoveDirection();
-          }
-          break;
-        case 2:
-          if (this.ship.column - 1 >= 0) {
-            this.ship.push({ id:2, row: this.ship[i].row, column: this.ship[i].column - 1 });
-            this.markTheField();
-          } else {
-            this.nextMoveDirection();
-          }
-          break;
-        case 3:
-          if (this.ship.row - 1 >= 0) {
-            this.ship.push({ id:2, row: this.ship[i].row - 1, column: this.ship[i].column });
-            this.markTheField();
-          } else {
-            this.nextMoveDirection();
-          }
-          break;
-      }
+      case 0:
+        return this.ship[previousField].column + 1 < 10;
+        break;
+      case 1:
+        return this.ship[previousField].row + 1 < 10;
+        break;
+      case 2:
+        return this.ship[previousField].column - 1 >= 0;
+        break;
+      case 3:
+        return this.ship[previousField].row - 1 >= 0;
+        break;
     }
+  };
+
+  this.addNewField = function(direction, previousField){
+      switch (direction) {
+      case 0:
+        return [...this.ship, {
+          id: this.ship[previousField].id + 1, 
+          row: this.ship[previousField].row, 
+          column: this.ship[previousField].column + 1
         
+        }];
+        break;
+      case 1:
+        return [...this.ship, {
+          id: this.ship[previousField].id + 1, 
+          row: this.ship[previousField].row - 1, 
+          column: this.ship[previousField].column
+        }];
+        break;
+      case 2:
+        return [...this.ship, {
+          id: this.ship[previousField].id + 1, 
+          row: this.ship[previousField].row, 
+          column: this.ship[previousField].column - 1
+        }];
+        break;
+      case 3:
+        return [...this.ship, {
+          id: this.ship[previousField].id + 1, 
+          row: this.ship[previousField].row - 1, 
+          column: this.ship[previousField].column
+        }];
+        break;
+    }
   };
 }
 
-function TripleShip(){
-  DoubleShip.call(this);
-}
+//  4
+// const quadrupleShip = new QuadrupleShip();
+// quadrupleShip.addNewShip();
+// quadrupleShip.nextMoveDirection(3);
 
-function QuadrupleShip(){
-  DoubleShip.call(this);
-}
+// // 3
+// const firstTripleShip = new TripleShip();
+// firstTripleShip.addNewShip();
+// firstTripleShip.nextMoveDirection(2);
 
-const quadrupleShip = new QuadrupleShip();
-quadrupleShip.addNewShip();
-quadrupleShip.nextMoveDirection(3);
+//  // 3
+// const secondTripleShip = new TripleShip();
+// secondTripleShip.addNewShip();
+// secondTripleShip.nextMoveDirection(2);
 
-const firstTripleShip = new TripleShip();
-firstTripleShip.addNewShip();
-firstTripleShip.nextMoveDirection(2);
-const secondTripleShip = new TripleShip();
-secondTripleShip.addNewShip();
-secondTripleShip.nextMoveDirection(2);
-
+// // 2
 const firstDoubleShip = new DoubleShip();
+
 firstDoubleShip.addNewShip();
-firstDoubleShip.nextMoveDirection(1);
-
-const firstSingleShip = new SingleShip();
-firstSingleShip.addNewShip();
 
 
-console.log('First triple ship is ', firstTripleShip.ship);
-console.log('First double ship is ', firstDoubleShip.ship);
-console.log('First single ship is ', firstSingleShip.ship);
+
+let nextMove = false;
+if(!nextMove){
+  console.log('i cand marc it')
+  const direction = firstDoubleShip.choseDirection();
+  console.log("Direction =", direction);
+  nextMove = firstDoubleShip.checkMove(direction, 0);
+  console.log(nextMove);
+}
+  else{
+    firstDoubleShip.markTheField(newField);
+}
+
+
+const newField = firstDoubleShip.addNewField(0,0);
+console.log(newField);
+
+
+// // 1
+// const firstSingleShip = new SingleShip();
+// firstSingleShip.addNewShip();
+
+// console.log('Quadruple ship is ', quadrupleShip.ship);
+// console.log('First triple ship is ', firstTripleShip.ship);
+// console.log('Second triple ship is ', secondTripleShip.ship);
+// console.log('First double ship is ', firstDoubleShip.ship);
+// console.log('First single ship is ', firstSingleShip.ship);
+
+// Adding taken fields to the grid
+// view.markFieldsAsTaken(firstSingleShip.ship);
