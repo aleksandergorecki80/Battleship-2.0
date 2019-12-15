@@ -124,7 +124,7 @@ function DoubleShip() {
           ...this.ship,
           {
             id: this.ship[previousArrPosition].id + 1,
-            row: this.ship[previousArrPosition].row - 1,
+            row: this.ship[previousArrPosition].row + 1,
             column: this.ship[previousArrPosition].column
           }
         ];
@@ -183,6 +183,7 @@ function addingTripleShipsToTheGrid() {
     let direction = "";
     while (!nextMove) {
       direction = tripleShip.choseDirection(); // choosing diration of marking
+      console.log('direction for 3', direction);
       nextMove = tripleShip.checkMove(direction, i); // checking if move is possible
     }
 
@@ -204,6 +205,7 @@ function addingDoubleShipsToTheGrid() {
   let direction = "";
   while (!nextMove) {
     direction = firstDoubleShip.choseDirection(); // choosing diration of marking
+    console.log('direction for 2', direction);
     nextMove = firstDoubleShip.checkMove(direction, 0); // checking if move is possible
   }
 
