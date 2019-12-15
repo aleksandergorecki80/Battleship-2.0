@@ -52,24 +52,21 @@ view.displayMessage("This is a testing message");
 view.displayHit("3-3");
 view.displayMiss("6-4");
 
-
 //              ------    Ships section     --------------
 // Single Ships
 
 function SingleShip() {
-   this.ship = [];
+  this.ship = [];
 
   this.buildNewShip = function() {
-    this.ship.row = 9;
-    // this.ship.row = Math.floor(Math.random() * 10);
-    // this.ship.column = Math.floor(Math.random() * 10);
-    this.ship.column = 9;
+    this.ship.row = Math.floor(Math.random() * 10);
+    this.ship.column = Math.floor(Math.random() * 10);
     console.log("Starting point", this.ship.column, this.ship.row);
     return [{ id: 1, row: this.ship.row, column: this.ship.column }];
   };
 
   this.markTheField = function(newField) {
-    console.log('newField in mark new field', newField);
+    console.log("newField in mark new field", newField);
     newField.forEach(cellId => {
       document
         .getElementById(`${cellId.row}-${cellId.column}`)
@@ -78,7 +75,7 @@ function SingleShip() {
   };
   this.addNewShip = function() {
     this.ship = this.buildNewShip();
-    
+
     console.log(this.ship);
   };
 }
@@ -94,7 +91,7 @@ function DoubleShip() {
 
   // Check if a move is posible
   this.checkMove = function(direction, previousArrPosition) {
-      switch (direction) {
+    switch (direction) {
       case 0:
         return this.ship[previousArrPosition].column + 1 < 10;
         break;
@@ -110,36 +107,47 @@ function DoubleShip() {
     }
   };
 
-  this.addNewField = function(direction, previousArrPosition){
-      switch (direction) {
+  this.addNewField = function(direction, previousArrPosition) {
+    switch (direction) {
       case 0:
-        return [...this.ship, {
-          id: this.ship[previousArrPosition].id + 1, 
-          row: this.ship[previousArrPosition].row, 
-          column: this.ship[previousArrPosition].column + 1
-        
-        }];
+        return [
+          ...this.ship,
+          {
+            id: this.ship[previousArrPosition].id + 1,
+            row: this.ship[previousArrPosition].row,
+            column: this.ship[previousArrPosition].column + 1
+          }
+        ];
         break;
       case 1:
-        return [...this.ship, {
-          id: this.ship[previousArrPosition].id + 1, 
-          row: this.ship[previousArrPosition].row - 1, 
-          column: this.ship[previousArrPosition].column
-        }];
+        return [
+          ...this.ship,
+          {
+            id: this.ship[previousArrPosition].id + 1,
+            row: this.ship[previousArrPosition].row - 1,
+            column: this.ship[previousArrPosition].column
+          }
+        ];
         break;
       case 2:
-        return [...this.ship, {
-          id: this.ship[previousArrPosition].id + 1, 
-          row: this.ship[previousArrPosition].row, 
-          column: this.ship[previousArrPosition].column - 1
-        }];
+        return [
+          ...this.ship,
+          {
+            id: this.ship[previousArrPosition].id + 1,
+            row: this.ship[previousArrPosition].row,
+            column: this.ship[previousArrPosition].column - 1
+          }
+        ];
         break;
       case 3:
-        return [...this.ship, {
-          id: this.ship[previousArrPosition].id + 1, 
-          row: this.ship[previousArrPosition].row - 1, 
-          column: this.ship[previousArrPosition].column
-        }];
+        return [
+          ...this.ship,
+          {
+            id: this.ship[previousArrPosition].id + 1,
+            row: this.ship[previousArrPosition].row - 1,
+            column: this.ship[previousArrPosition].column
+          }
+        ];
         break;
     }
   };
@@ -162,20 +170,18 @@ function DoubleShip() {
 
 // // 2
 
+const firstDoubleShip = new DoubleShip(); // initialisation of double ship
+firstDoubleShip.addNewShip(); //  starting new ship
 
-const firstDoubleShip = new DoubleShip();             // initialisation of double ship
-firstDoubleShip.addNewShip();                         //  starting new ship
-
-const direction = firstDoubleShip.choseDirection();    // choosing diration of marking
+const direction = firstDoubleShip.choseDirection(); // choosing diration of marking
 console.log("Direction =", direction);
 
-
-let nextMove = false;                                 // checking if move is possible
+let nextMove = false; // checking if move is possible
 nextMove = firstDoubleShip.checkMove(direction, 0);
-console.log('next move is ', nextMove);
+console.log("next move is ", nextMove);
 
-const newField = firstDoubleShip.addNewField(direction, 0);   // Adding new field to array
-firstDoubleShip.markTheField(newField);                       // marking the ship
+const newField = firstDoubleShip.addNewField(direction, 0); // Adding new field to array
+firstDoubleShip.markTheField(newField); // marking the ship
 console.log(nextMove);
 
 // let nextMove = false;
@@ -190,10 +196,7 @@ console.log(nextMove);
 //     firstDoubleShip.markTheField(newField);
 // }
 
-
-
 console.log(newField);
-
 
 // // 1
 // const firstSingleShip = new SingleShip();
