@@ -1,34 +1,18 @@
-// Printing the grid
-
-// Function prints rows
-function printRows(id) {
-  const game = document.getElementById("game");
-  var tr = document.createElement("tr");
-  game.appendChild(tr);
-  // div.classList.add("field");
-  tr.id = id;
-  printColumns(tr.id); // Passing row id
-}
-
-//   //Funstion rints columns
-function printColumns(trId) {
-  for (let i = 0; i < 10; i++) {
-    const tr = document.getElementById(trId);
-    var td = document.createElement("td");
-    tr.appendChild(td);
-
-    td.id = `${trId}-${i}`;
-    td.innerHTML = `${trId}-${i}`; // to do usunięcia
-  }
-}
-
-// Printing a board
-for (let i = 0; i < 10; i++) {
-  printRows(i);
-}
-
 const view = {
   boardFieldsTaken: [],
+
+  addShipFieldsAsTaken: function(data){
+    console.log('data', data);
+    return this.boardFieldsTaken.push(...data);
+    // return this.boardFieldsTaken = [
+    //   ...this.boardFieldsTaken, 
+    //   data.forEach(element => 
+    //   ({
+    //     row: element.row,
+    //     column: element.column
+    //   }))
+    // ];
+  },
 
   markFieldsAsTaken: function(object) {
     // console.log(object);
@@ -47,6 +31,7 @@ const view = {
     cell.setAttribute("class", "miss");
   }
 };
+
 
 // Testing board
 view.displayMessage("This is a testing message");
@@ -173,24 +158,24 @@ function addingQuadrupleShip() {
   const quadrupleShip = new QuadrupleShip(); // initialisation of double ship
   addingFields(quadrupleShip, 3);
 }
-addingQuadrupleShip();
+// addingQuadrupleShip();
 
 //     ---  TRIPLE SHIP    ---
 function addingTripleShipsToTheGrid() {
   const tripleShip = new TripleShip(); // initialisation of double ship
   addingFields(tripleShip, 2);
 }
-addingTripleShipsToTheGrid();
-addingTripleShipsToTheGrid();
+// addingTripleShipsToTheGrid();
+// addingTripleShipsToTheGrid();
 
 // //     ---  DOUBLE SHIP    ---
 function addingDoubleShipsToTheGrid() {
   const doubleShip = new DoubleShip(); // initialisation of double ship
   addingFields(doubleShip, 1);
 }
-addingDoubleShipsToTheGrid();
-addingDoubleShipsToTheGrid();
-addingDoubleShipsToTheGrid();
+// // addingDoubleShipsToTheGrid();
+// addingDoubleShipsToTheGrid();
+// addingDoubleShipsToTheGrid();
 
 function addingFields(shipSize, steps) {
   // function starts the ship
@@ -207,7 +192,7 @@ function addingFields(shipSize, steps) {
     shipSize.updateShip(newField);
     shipSize.markTheField(newField); // marking the ship
   }
-  console.log(shipSize.ship);
+  // console.log(shipSize.ship);
 }
 
 // //    ---  SINGLE SHIP ---
@@ -216,6 +201,9 @@ function addingSingleShipsToTheGrid() {
   singleShip.addNewShip();
   singleShip.markTheField(singleShip.ship);
   console.log(singleShip.ship);
+  //  --- Adding fields to excluded list
+  console.log('addShipFieldsAsTaken', view.addShipFieldsAsTaken(singleShip.ship));
+console.log('boardFieldsTaken', view.boardFieldsTaken);
 }
 addingSingleShipsToTheGrid();
 addingSingleShipsToTheGrid();
