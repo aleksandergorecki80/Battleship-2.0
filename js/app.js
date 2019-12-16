@@ -163,63 +163,61 @@ function TripleShip() {
   DoubleShip.call(this);
 }
 
-//  4
-// const quadrupleShip = new QuadrupleShip();
-// quadrupleShip.addNewShip();
-// quadrupleShip.nextMoveDirection(3);
+// Quadruple ship
+function QuadrupleShip() {
+  DoubleShip.call(this);
+}
 
-// // 3
-// const firstTripleShip = new TripleShip();
-// firstTripleShip.addNewShip();
-// firstTripleShip.nextMoveDirection(2);
+//     ---  Quadruole SHIP    ---
+function addingQuadrupleShip() {
+  const quadrupleShip = new QuadrupleShip(); // initialisation of double ship
+  addingFields(quadrupleShip, 3);
+}
+addingQuadrupleShip();
 
 //     ---  TRIPLE SHIP    ---
 function addingTripleShipsToTheGrid() {
   const tripleShip = new TripleShip(); // initialisation of double ship
-  tripleShip.addNewShip(); //  starting new ship
-
-  for (let i = 0; i < 2; i++) {
-    let nextMove = false;
-    let direction = "";
-    while (!nextMove) {
-      direction = tripleShip.choseDirection(); // choosing diration of marking
-      console.log('direction for 3', direction);
-      nextMove = tripleShip.checkMove(direction, i); // checking if move is possible
-    }
-
-    const newField = tripleShip.addNewField(direction, i); // Adding new field to array
-    tripleShip.updateShip(newField);
-    tripleShip.markTheField(newField); // marking the ship
-  }
-
-  console.log(tripleShip.ship);
+  addingFields(tripleShip, 2);
 }
+addingTripleShipsToTheGrid();
 addingTripleShipsToTheGrid();
 
 // //     ---  DOUBLE SHIP    ---
 function addingDoubleShipsToTheGrid() {
-  const firstDoubleShip = new DoubleShip(); // initialisation of double ship
-  firstDoubleShip.addNewShip(); //  starting new ship
-
-  let nextMove = false;
-  let direction = "";
-  while (!nextMove) {
-    direction = firstDoubleShip.choseDirection(); // choosing diration of marking
-    console.log('direction for 2', direction);
-    nextMove = firstDoubleShip.checkMove(direction, 0); // checking if move is possible
-  }
-
-  const newField = firstDoubleShip.addNewField(direction, 0); // Adding new field to array
-  firstDoubleShip.updateShip(newField);
-  firstDoubleShip.markTheField(newField); // marking the ship
-  console.log(firstDoubleShip.ship);
+  const doubleShip = new DoubleShip(); // initialisation of double ship
+  addingFields(doubleShip, 1);
 }
 addingDoubleShipsToTheGrid();
+addingDoubleShipsToTheGrid();
+addingDoubleShipsToTheGrid();
+
+function addingFields(shipSize, steps) {
+  // function starts the ship
+  shipSize.addNewShip(); //  starting new ship
+  for (let i = 0; i < steps; i++) {
+    // and adds another fields to bigger ships
+    let nextMove = false;
+    let direction = "";
+    while (!nextMove) {
+      direction = shipSize.choseDirection(); // choosing diration of marking
+      nextMove = shipSize.checkMove(direction, i); // checking if move is possible
+    }
+    const newField = shipSize.addNewField(direction, i); // Adding new field to array
+    shipSize.updateShip(newField);
+    shipSize.markTheField(newField); // marking the ship
+  }
+  console.log(shipSize.ship);
+}
 
 // //    ---  SINGLE SHIP ---
-// function addingSingleShipsToTheGrid() {
-//   const singleShip = new SingleShip(); // initialisation of single ship
-//   singleShip.addNewShip();
-//   singleShip.markTheField(singleShip.ship);
-// }
-// addingSingleShipsToTheGrid();
+function addingSingleShipsToTheGrid() {
+  const singleShip = new SingleShip(); // initialisation of single ship
+  singleShip.addNewShip();
+  singleShip.markTheField(singleShip.ship);
+  console.log(singleShip.ship);
+}
+addingSingleShipsToTheGrid();
+addingSingleShipsToTheGrid();
+addingSingleShipsToTheGrid();
+addingSingleShipsToTheGrid();
