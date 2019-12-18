@@ -1,5 +1,5 @@
 const view = {
-  boardFieldsTaken: [],
+  boardFieldsTaken: [{ row: 2, column: 0}],
 
   searchField: function(numbers) {
     return this.boardFieldsTaken.find(function(obj) {
@@ -9,7 +9,7 @@ const view = {
 
   addShipFieldsAsTaken: function(data) {
     return this.boardFieldsTaken.push(data);
-    },
+  },
 
   markFieldsAsTaken: function(object) {
     console.log(object);
@@ -46,8 +46,8 @@ function SingleShip() {
     return [{ id: 1, row: this.ship.row, column: this.ship.column }];
   };
 
-  this.addNewShip = function() {
-    this.ship = this.buildNewShip();
+  this.addNewShip = function(shipStartPoint) {
+    this.ship = shipStartPoint;
   };
 
   //    funkcja zaznacza statek na planszy - do wywalenia
@@ -195,28 +195,21 @@ function addingFields(shipSize, steps) {
 function addingSingleShipsToTheGrid() {
   const singleShip = new SingleShip(); // initialisation of single ship
   // drawing numbers
-  const shipStartPoint = singleShip.buildNewShip();
-  console.log('shipStartPoint', shipStartPoint);
-  
+  let shipStartPoint = [ {row: 2, column: 0}];
   let isFieldFound = view.searchField(shipStartPoint[0]);
-
-  console.log(isFieldFound);
-
-  let i =0;
-  while(!isFieldFound){
+  while(isFieldFound){
+    shipStartPoint = singleShip.buildNewShip();
     isFieldFound = view.searchField(shipStartPoint[0]);
-      if(!isFieldFound){
-          view.addShipFieldsAsTaken(shipStartPoint[0]);
-      }
   }
 
-  console.log('boardFieldsTaken',view.boardFieldsTaken);
-
-  // singleShip.addNewShip();
-  // singleShip.markTheField(singleShip.ship);
-  // console.log(singleShip.ship);
+  view.addShipFieldsAsTaken(shipStartPoint[0]);
+  singleShip.addNewShip(shipStartPoint);
+  singleShip.markTheField(singleShip.ship);
+  console.log(singleShip.ship);
 }
 addingSingleShipsToTheGrid();
 // addingSingleShipsToTheGrid();
 // addingSingleShipsToTheGrid();
 // addingSingleShipsToTheGrid();
+
+console.log('wiev, ', view.boardFieldsTaken);
