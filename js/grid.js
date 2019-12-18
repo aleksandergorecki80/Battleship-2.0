@@ -10,7 +10,7 @@ function printRows(id) {
     printColumns(tr.id); // Passing row id
   }
   
-  //   //Funstion rints columns
+  //   //Funstion prints columns
   function printColumns(trId) {
     for (let i = 0; i < 10; i++) {
       const tr = document.getElementById(trId);

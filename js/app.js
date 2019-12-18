@@ -1,21 +1,18 @@
 const view = {
   boardFieldsTaken: [],
 
-  addShipFieldsAsTaken: function(data){
-    console.log('data', data);
-    return this.boardFieldsTaken.push(...data);
-    // return this.boardFieldsTaken = [
-    //   ...this.boardFieldsTaken, 
-    //   data.forEach(element => 
-    //   ({
-    //     row: element.row,
-    //     column: element.column
-    //   }))
-    // ];
+  searchField: function(numbers) {
+    return this.boardFieldsTaken.find(function(obj) {
+      return obj.col === numbers.col && obj.row === numbers.row;
+    });
   },
 
+  addShipFieldsAsTaken: function(data) {
+    return this.boardFieldsTaken.push(data);
+    },
+
   markFieldsAsTaken: function(object) {
-    // console.log(object);
+    console.log(object);
   },
 
   displayMessage: function(msg) {
@@ -31,7 +28,6 @@ const view = {
     cell.setAttribute("class", "miss");
   }
 };
-
 
 // Testing board
 view.displayMessage("This is a testing message");
@@ -198,14 +194,29 @@ function addingFields(shipSize, steps) {
 // //    ---  SINGLE SHIP ---
 function addingSingleShipsToTheGrid() {
   const singleShip = new SingleShip(); // initialisation of single ship
-  singleShip.addNewShip();
-  singleShip.markTheField(singleShip.ship);
-  console.log(singleShip.ship);
-  //  --- Adding fields to excluded list
-  console.log('addShipFieldsAsTaken', view.addShipFieldsAsTaken(singleShip.ship));
-console.log('boardFieldsTaken', view.boardFieldsTaken);
+  // drawing numbers
+  const shipStartPoint = singleShip.buildNewShip();
+  console.log('shipStartPoint', shipStartPoint);
+  
+  let isFieldFound = view.searchField(shipStartPoint[0]);
+
+  console.log(isFieldFound);
+
+  let i =0;
+  while(!isFieldFound){
+    isFieldFound = view.searchField(shipStartPoint[0]);
+      if(!isFieldFound){
+          view.addShipFieldsAsTaken(shipStartPoint[0]);
+      }
+  }
+
+  console.log('boardFieldsTaken',view.boardFieldsTaken);
+
+  // singleShip.addNewShip();
+  // singleShip.markTheField(singleShip.ship);
+  // console.log(singleShip.ship);
 }
 addingSingleShipsToTheGrid();
-addingSingleShipsToTheGrid();
-addingSingleShipsToTheGrid();
-addingSingleShipsToTheGrid();
+// addingSingleShipsToTheGrid();
+// addingSingleShipsToTheGrid();
+// addingSingleShipsToTheGrid();
