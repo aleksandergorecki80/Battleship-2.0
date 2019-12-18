@@ -181,6 +181,8 @@ addingDoubleShipsToTheGrid();
 
 function addingFields(shipSize, steps) {          // this function adds another fields to the egzisting ship
    
+
+
   for (let i = 0; i < steps; i++) {
     // and adds another fields to bigger ships
     let nextMove = false;
@@ -203,10 +205,6 @@ function addingFields(shipSize, steps) {          // this function adds another 
           addingFields(shipSize, steps);
         }
       }
-
-
-
-
    ///
 
     shipSize.updateShip(newField);
