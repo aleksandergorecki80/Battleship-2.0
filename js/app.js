@@ -1,5 +1,5 @@
 const view = {
-  boardFieldsTaken: [{ row: 2, column: 0}],
+  boardFieldsTaken: [{ row: 2, column: 0 }],
 
   searchField: function(numbers) {
     return this.boardFieldsTaken.find(function(obj) {
@@ -167,22 +167,30 @@ function addingTripleShipsToTheGrid() {
 // //     ---  DOUBLE SHIP    ---
 function addingDoubleShipsToTheGrid() {
   const doubleShip = new DoubleShip(); // initialisation of double ship
-  let shipStartPoint = doubleShip.buildNewShip();              ///     ODKOMENTUJ
-  // let shipStartPoint = { row: 2, column: 0};
 
+// sprobuj cały blok do końca funkcji dać w pętle while
+
+
+  // let shipStartPoint = doubleShip.buildNewShip(); ///     ODKOMENTUJ
+  let shipStartPoint = [{ row: 2, column: 0}];
   doubleShip.addNewShip(shipStartPoint);
+  addingFields(doubleShip, 1);
 
-  const newFields = addingFields(doubleShip, 1); 
-   
+  for(let i =0; i<doubleShip.ship.length; i++){
+    let isFieldFound = view.searchField(doubleShip.ship[i]);
+    if(isFieldFound){
+      console.log('znalaz');
+    }
+  }
+
+console.log('double ship',doubleShip.ship);
 }
 addingDoubleShipsToTheGrid();
 // addingDoubleShipsToTheGrid();
 // addingDoubleShipsToTheGrid();
 
-function addingFields(shipSize, steps) {          // this function adds another fields to the egzisting ship
-   
-
-
+function addingFields(shipSize, steps) {
+  // this function adds another fields to the egzisting ship
   for (let i = 0; i < steps; i++) {
     // and adds another fields to bigger ships
     let nextMove = false;
@@ -192,34 +200,18 @@ function addingFields(shipSize, steps) {          // this function adds another 
       nextMove = shipSize.checkMove(direction, i); // checking if move is possible
     }
     const newField = shipSize.addNewField(direction, i); // Adding new field to array
-
-   // adding field to the excluded fields
-      // przenies to do innej funkcji jak zadziala
-
-      for(let i =0; i<newField.length; i++){
-        isFieldFound = view.searchField(newField[i]);
-        console.log('isFieldFound', isFieldFound)
-        if(!isFieldFound){
-          view.addShipFieldsAsTaken(newField[i]);
-        } else {
-          addingFields(shipSize, steps);
-        }
-      }
-   ///
-
     shipSize.updateShip(newField);
     shipSize.markTheField(newField); // marking the ship
   }
-  // console.log(shipSize.ship);
 }
 
 // //    ---  SINGLE SHIP ---
 function addingSingleShipsToTheGrid() {
   const singleShip = new SingleShip(); // initialisation of single ship
   // drawing numbers
-  let shipStartPoint = [ {row: 2, column: 0}];
+  let shipStartPoint = [{ row: 2, column: 0 }];
   let isFieldFound = view.searchField(shipStartPoint[0]);
-  while(isFieldFound){
+  while (isFieldFound) {
     shipStartPoint = singleShip.buildNewShip();
     isFieldFound = view.searchField(shipStartPoint[0]);
   }
@@ -229,31 +221,10 @@ function addingSingleShipsToTheGrid() {
   singleShip.markTheField(singleShip.ship);
   console.log(singleShip.ship);
 }
+addingSingleShipsToTheGrid();
 // addingSingleShipsToTheGrid();
 // addingSingleShipsToTheGrid();
 // addingSingleShipsToTheGrid();
-// addingSingleShipsToTheGrid();
 
-console.log('wiev, ', view.boardFieldsTaken);
+console.log("wiev, ", view.boardFieldsTaken);
 
-
-function checkIfFieldIsExcludedAndAddIfNot(shipSize, newField){
-    let isFieldFound = '';
-    console.log('newField', newField);
-
-
-    for(let i =0; i<newField.length; i++){
-      isFieldFound = view.searchField(newField[i]);
-      console.log('isFieldFound', isFieldFound)
-      if(!isFieldFound){
-        view.addShipFieldsAsTaken(newField[i]);
-      } else {
-        addingFields(doubleShip, 1);
-      }
-    }
-    
-      
-  // for(let i =0; i<newField.length; i++){
-  //   view.addShipFieldsAsTaken(newField[i]);
-  // }
-}
