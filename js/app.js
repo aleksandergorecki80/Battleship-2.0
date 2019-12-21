@@ -1,5 +1,5 @@
 const view = {
-  boardFieldsTaken: [{ row: 2, column: 0 }],
+  boardFieldsTaken: [{ id: 0, row: 2, column: 0 }],
 
   searchField: function(numbers) {
     return this.boardFieldsTaken.find(function(obj) {
@@ -168,22 +168,61 @@ function addingTripleShipsToTheGrid() {
 function addingDoubleShipsToTheGrid() {
   const doubleShip = new DoubleShip(); // initialisation of double ship
 
-// sprobuj cały blok do końca funkcji dać w pętle while
+  let shipStartPoint = doubleShip.buildNewShip(); ///     ODKOMENTUJ
 
-
-  // let shipStartPoint = doubleShip.buildNewShip(); ///     ODKOMENTUJ
-  let shipStartPoint = [{ row: 2, column: 0}];
   doubleShip.addNewShip(shipStartPoint);
   addingFields(doubleShip, 1);
 
-  for(let i =0; i<doubleShip.ship.length; i++){
-    let isFieldFound = view.searchField(doubleShip.ship[i]);
-    if(isFieldFound){
-      console.log('znalaz');
+  let howManyEmptysFound = 0;
+  for (let i = 0; i < doubleShip.ship.length; i++) {
+
+    const found = view.searchField(doubleShip.ship[i]);
+    
+    if(found === undefined){
+      howManyEmptysFound++;
+      if(howManyEmptysFound === 2){
+        console.log("dodajemy bo howManyEmptysFound = ", howManyEmptysFound);
+        view.boardFieldsTaken.push(doubleShip.ship[i]);
+      }
     }
   }
 
-console.log('double ship',doubleShip.ship);
+  // sprobuj cały blok do końca funkcji dać w pętle while
+
+  // for (let length = view.boardFieldsTaken.length; length+2 !== view.boardFieldsTaken.length; ) {
+  //   let shipStartPoint = doubleShip.buildNewShip(); ///     ODKOMENTUJ
+
+  //   doubleShip.addNewShip(shipStartPoint);
+  //   addingFields(doubleShip, 1);
+
+  //   doubleShip.ship.forEach(element => {
+  //   console.log('element', element);
+  //   console.log(view.searchField(element));
+  // });
+
+  //   view.boardFieldsTaken.length++;
+  //   console.log('view.boardFieldsTaken.length', view.boardFieldsTaken.length);
+  // }
+
+  // let ileRazyZnalaz=0;
+  // for(let i =0; i<doubleShip.ship.length; i++){
+  //   let isFieldFound = view.searchField(doubleShip.ship[i]);
+  //   console.log('isFieldFound',isFieldFound);
+  //   if(!isFieldFound){
+  //     console.log('nie znalaz');
+  //   } else {
+  //     ileRazyZnalaz++;
+  //     console.log('znalaz');
+  //   }
+  //   if(ileRazyZnalaz===0){
+  //     console.log('jest OK')
+  //   } else {
+  //     console.log('szukamy znowu');
+  //   }
+  // }
+
+  // console.log('ileRazyZnalaz',ileRazyZnalaz);
+  console.log("double ship", doubleShip.ship);
 }
 addingDoubleShipsToTheGrid();
 // addingDoubleShipsToTheGrid();
@@ -221,10 +260,9 @@ function addingSingleShipsToTheGrid() {
   singleShip.markTheField(singleShip.ship);
   console.log(singleShip.ship);
 }
-addingSingleShipsToTheGrid();
+// addingSingleShipsToTheGrid();
 // addingSingleShipsToTheGrid();
 // addingSingleShipsToTheGrid();
 // addingSingleShipsToTheGrid();
 
 console.log("wiev, ", view.boardFieldsTaken);
-
