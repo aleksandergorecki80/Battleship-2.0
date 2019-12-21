@@ -1,5 +1,5 @@
 const view = {
-  boardFieldsTaken: [{ id: 0, row: 2, column: 0 }],
+  boardFieldsTaken: [],
 
   searchField: function(numbers) {
     return this.boardFieldsTaken.find(function(obj) {
@@ -8,7 +8,11 @@ const view = {
   },
 
   addShipFieldsAsTaken: function(data) {
-    return this.boardFieldsTaken.push(data);
+    return [...this.boardFieldsTaken, ...data];
+  },
+
+  updateTakenFields: function(data) {
+    this.boardFieldsTaken = data;
   },
 
   markFieldsAsTaken: function(object) {
@@ -51,8 +55,8 @@ function SingleShip() {
   };
 
   //    funkcja zaznacza statek na planszy - do wywalenia
-  this.markTheField = function(newField) {
-    newField.forEach(cellId => {
+  this.markTheField = function() {
+    this.ship.forEach(cellId => {
       document
         .getElementById(`${cellId.row}-${cellId.column}`)
         .classList.add("marked");
@@ -168,65 +172,28 @@ function addingTripleShipsToTheGrid() {
 function addingDoubleShipsToTheGrid() {
   const doubleShip = new DoubleShip(); // initialisation of double ship
 
+for(let howManyFound = 0; howManyFound<2; ){
   let shipStartPoint = doubleShip.buildNewShip(); ///     ODKOMENTUJ
-
   doubleShip.addNewShip(shipStartPoint);
   addingFields(doubleShip, 1);
-
-  let howManyEmptysFound = 0;
-  for (let i = 0; i < doubleShip.ship.length; i++) {
-
-    const found = view.searchField(doubleShip.ship[i]);
-    
-    if(found === undefined){
-      howManyEmptysFound++;
-      if(howManyEmptysFound === 2){
-        console.log("dodajemy bo howManyEmptysFound = ", howManyEmptysFound);
-        view.boardFieldsTaken.push(doubleShip.ship[i]);
-      }
-    }
+  //
+  doubleShip.ship.forEach(element => {
+    if (view.searchField(element) === undefined) {
+      howManyFound++;
+     }
+  });
+  if (howManyFound === doubleShip.ship.length) {
+    const updatedView = view.addShipFieldsAsTaken(doubleShip.ship);
+    view.updateTakenFields(updatedView);
+    console.log('updatedView', updatedView);
   }
-
-  // sprobuj cały blok do końca funkcji dać w pętle while
-
-  // for (let length = view.boardFieldsTaken.length; length+2 !== view.boardFieldsTaken.length; ) {
-  //   let shipStartPoint = doubleShip.buildNewShip(); ///     ODKOMENTUJ
-
-  //   doubleShip.addNewShip(shipStartPoint);
-  //   addingFields(doubleShip, 1);
-
-  //   doubleShip.ship.forEach(element => {
-  //   console.log('element', element);
-  //   console.log(view.searchField(element));
-  // });
-
-  //   view.boardFieldsTaken.length++;
-  //   console.log('view.boardFieldsTaken.length', view.boardFieldsTaken.length);
-  // }
-
-  // let ileRazyZnalaz=0;
-  // for(let i =0; i<doubleShip.ship.length; i++){
-  //   let isFieldFound = view.searchField(doubleShip.ship[i]);
-  //   console.log('isFieldFound',isFieldFound);
-  //   if(!isFieldFound){
-  //     console.log('nie znalaz');
-  //   } else {
-  //     ileRazyZnalaz++;
-  //     console.log('znalaz');
-  //   }
-  //   if(ileRazyZnalaz===0){
-  //     console.log('jest OK')
-  //   } else {
-  //     console.log('szukamy znowu');
-  //   }
-  // }
-
-  // console.log('ileRazyZnalaz',ileRazyZnalaz);
+  //
+}
   console.log("double ship", doubleShip.ship);
 }
 addingDoubleShipsToTheGrid();
-// addingDoubleShipsToTheGrid();
-// addingDoubleShipsToTheGrid();
+addingDoubleShipsToTheGrid();
+addingDoubleShipsToTheGrid();
 
 function addingFields(shipSize, steps) {
   // this function adds another fields to the egzisting ship
@@ -240,7 +207,7 @@ function addingFields(shipSize, steps) {
     }
     const newField = shipSize.addNewField(direction, i); // Adding new field to array
     shipSize.updateShip(newField);
-    shipSize.markTheField(newField); // marking the ship
+    shipSize.markTheField(); // marking the ship
   }
 }
 
@@ -265,4 +232,4 @@ function addingSingleShipsToTheGrid() {
 // addingSingleShipsToTheGrid();
 // addingSingleShipsToTheGrid();
 
-console.log("wiev, ", view.boardFieldsTaken);
+// console.log("wiev, ", view.boardFieldsTaken);
