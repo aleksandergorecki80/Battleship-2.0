@@ -191,7 +191,7 @@ for(let howManyFound = 0; howManyFound<2; ){
 }
   console.log("double ship", doubleShip.ship);
 }
-addingDoubleShipsToTheGrid();
+// addingDoubleShipsToTheGrid();
 addingDoubleShipsToTheGrid();
 addingDoubleShipsToTheGrid();
 
