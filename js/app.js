@@ -8,23 +8,14 @@ const view = {
   searchField: function(shipFields) {
     for (let i = 0; i < shipFields.length; i++) {
       for (let k = 0; k < this.boardFieldsTaken.length; k++) {
-        
-        console.log(shipFields[i].row , this.boardFieldsTaken[k].row);
-        console.log(shipFields[i].column , this.boardFieldsTaken[k].column);
-        if (
+        if(
           shipFields[i].row === this.boardFieldsTaken[k].row &&
-          shipFields[i].column === this.boardFieldsTaken[k].column
-        ) {
-          console.log("zgadzasie");
-          
-          console.log(shipFields[i].row , this.boardFieldsTaken[k].row);
-          console.log(shipFields[i].column , this.boardFieldsTaken[k].column);
-        
-          return true;
-        } else {
-          return false;
-        }
-        console.log('i = ', i,  'k = ', k);
+          shipFields[i].column === this.boardFieldsTaken[k].column ){
+            return true;
+        } 
+        // else {
+        //   console.log('fałsz')
+        // }
       }
     }
   },
@@ -56,6 +47,7 @@ const view = {
 };
 
 // Testing board
+view.searchField([{id: 2, row: 1, column: 2 }]);
 view.displayMessage("This is a testing message");
 view.displayHit("3-3");
 view.displayMiss("6-4");
@@ -68,7 +60,6 @@ function SingleShip(id) {
   this.id = id;
 
   this.buildNewShip = function() {
-    console.log('id', this.id);
     this.ship.row = Math.floor(Math.random() * 10);
     this.ship.column = Math.floor(Math.random() * 10);
     return [{ id: this.id, row: this.ship.row, column: this.ship.column }];
@@ -209,6 +200,7 @@ function addingDoubleShipsToTheGrid(id) {
   const updatedView = view.addShipFieldsAsTaken(currentShipState);
   view.updateTakenFields(updatedView);
   doubleShip.markTheField(); // marking the ship
+  console.log("double ship", doubleShip.ship);
 }
 addingDoubleShipsToTheGrid(1);
 addingDoubleShipsToTheGrid(2);
@@ -223,9 +215,7 @@ function searchForTakenFieldsInTheArray(shipSize, howManyFieldsToAdd){
     shipSize.addNewShip(shipStartPoint);
     addingFields(shipSize, howManyFieldsToAdd);
     const currentShipState = shipSize.getTheShip();
-    console.log("double ship", shipSize.ship);
     found = view.searchField(currentShipState);
-    console.log(found);
   } while (found);
 }
 
