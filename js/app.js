@@ -163,8 +163,8 @@ function DoubleShip(id) {
 }
 
 // Triple ship
-function TripleShip() {
-  DoubleShip.call(this);
+function TripleShip(id) {
+  DoubleShip.call(this, id);
 }
 
 // Quadruple ship
@@ -180,12 +180,22 @@ function addingQuadrupleShip() {
 // addingQuadrupleShip();
 
 //     ---  TRIPLE SHIP    ---
-function addingTripleShipsToTheGrid() {
-  const tripleShip = new TripleShip(); // initialisation of double ship
-  addingFields(tripleShip, 2);
+function addingTripleShipsToTheGrid(id) {
+  const tripleShip = new TripleShip(id); // initialisation of tripple ship
+  const howManyFieldsToAdd = 2;
+
+  // searching for fileds in current excluded list
+  searchForTakenFieldsInTheArray(tripleShip, howManyFieldsToAdd)
+
+  const currentShipState = tripleShip.getTheShip();
+  tripleShip.updateShip(currentShipState);                          // nie jestem pewien tego !!!
+  const updatedView = view.addShipFieldsAsTaken(currentShipState);
+  view.updateTakenFields(updatedView);
+  tripleShip.markTheField(); // marking the ship
+  console.log("tripleShip ship", tripleShip.ship);
 }
-// addingTripleShipsToTheGrid();
-// addingTripleShipsToTheGrid();
+addingTripleShipsToTheGrid(2);
+addingTripleShipsToTheGrid(3);
 
 // //     ---  DOUBLE SHIP    ---
 function addingDoubleShipsToTheGrid(id) {
@@ -202,9 +212,9 @@ function addingDoubleShipsToTheGrid(id) {
   doubleShip.markTheField(); // marking the ship
   console.log("double ship", doubleShip.ship);
 }
-addingDoubleShipsToTheGrid(1);
-addingDoubleShipsToTheGrid(2);
-addingDoubleShipsToTheGrid(3);
+addingDoubleShipsToTheGrid(4);
+addingDoubleShipsToTheGrid(5);
+addingDoubleShipsToTheGrid(6);
 
 function searchForTakenFieldsInTheArray(shipSize, howManyFieldsToAdd){
   let shipStartPoint = "";
@@ -213,7 +223,10 @@ function searchForTakenFieldsInTheArray(shipSize, howManyFieldsToAdd){
   do {
     shipStartPoint = shipSize.buildNewShip(); ///     ODKOMENTUJ
     shipSize.addNewShip(shipStartPoint);
-    addingFields(shipSize, howManyFieldsToAdd);
+    if(howManyFieldsToAdd !== 0){
+      addingFields(shipSize, howManyFieldsToAdd);
+    }
+    
     const currentShipState = shipSize.getTheShip();
     found = view.searchField(currentShipState);
   } while (found);
@@ -236,30 +249,25 @@ function addingFields(shipSize, steps) {
 }
 
 // //    ---  SINGLE SHIP ---
-function addingSingleShipsToTheGrid() {
-  const singleShip = new SingleShip(); // initialisation of single ship
+function addingSingleShipsToTheGrid(id) {
+  const singleShip = new SingleShip(id); // initialisation of single ship
 
-  let shipStartPoint = "";
-  let found = "";
+  const howManyFieldsToAdd = 0;
 
-  do {
-    shipStartPoint = singleShip.buildNewShip(); ///     ODKOMENTUJ
-    singleShip.addNewShip(shipStartPoint);
+  // searching for fileds in current excluded list
+  searchForTakenFieldsInTheArray(singleShip, howManyFieldsToAdd)
 
-    const currentBoardFieldsTaken = view.getBoardFieldsTaken();
-    console.log("singleShip ship", singleShip.ship);
-    found = view.searchField(currentBoardFieldsTaken);
-  } while (found);
   const currentShipState = singleShip.getTheShip();
+  singleShip.updateShip(currentShipState);                          // nie jestem pewien tego !!!
   const updatedView = view.addShipFieldsAsTaken(currentShipState);
   view.updateTakenFields(updatedView);
   singleShip.markTheField(); // marking the ship
-  console.log("updatedView", updatedView);
+  console.log("double ship", singleShip.ship);
 }
-// addingSingleShipsToTheGrid(4);
-// addingSingleShipsToTheGrid();
-// addingSingleShipsToTheGrid();
-// addingSingleShipsToTheGrid();
+// addingSingleShipsToTheGrid(7);
+// addingSingleShipsToTheGrid(8);
+// addingSingleShipsToTheGrid(9);
+// addingSingleShipsToTheGrid(10);
 
 // console.log("wiev, ", view.boardFieldsTaken);
 
