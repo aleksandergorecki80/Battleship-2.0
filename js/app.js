@@ -8,23 +8,17 @@ const view = {
   searchField: function(shipFields) {
     for (let i = 0; i < shipFields.length; i++) {
       for (let k = 0; k < this.boardFieldsTaken.length; k++) {
-        
-        console.log(shipFields[i].row , this.boardFieldsTaken[k].row);
-        console.log(shipFields[i].column , this.boardFieldsTaken[k].column);
+        console.log('i', i,'k',k);
+        console.log('shipFields.length ', shipFields.length)
         if (
           shipFields[i].row === this.boardFieldsTaken[k].row &&
           shipFields[i].column === this.boardFieldsTaken[k].column
         ) {
           console.log("zgadzasie");
-          
-          console.log(shipFields[i].row , this.boardFieldsTaken[k].row);
-          console.log(shipFields[i].column , this.boardFieldsTaken[k].column);
-        
           return true;
         } else {
-          return false;
+          console.log("mozna dodac");
         }
-        console.log('i = ', i,  'k = ', k);
       }
     }
   },
@@ -68,7 +62,6 @@ function SingleShip(id) {
   this.id = id;
 
   this.buildNewShip = function() {
-    console.log('id', this.id);
     this.ship.row = Math.floor(Math.random() * 10);
     this.ship.column = Math.floor(Math.random() * 10);
     return [{ id: this.id, row: this.ship.row, column: this.ship.column }];
@@ -208,6 +201,7 @@ function addingDoubleShipsToTheGrid(id) {
   doubleShip.updateShip(currentShipState);                          // nie jestem pewien tego !!!
   const updatedView = view.addShipFieldsAsTaken(currentShipState);
   view.updateTakenFields(updatedView);
+  console.log(view.getBoardFieldsTaken());
   doubleShip.markTheField(); // marking the ship
 }
 addingDoubleShipsToTheGrid(1);
@@ -273,4 +267,3 @@ function addingSingleShipsToTheGrid() {
 
 // console.log("wiev, ", view.boardFieldsTaken);
 
-console.log(view.getBoardFieldsTaken());
