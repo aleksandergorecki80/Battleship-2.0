@@ -1,6 +1,10 @@
 const view = {
   boardFieldsTaken: [],
 
+  getBoardFieldsTaken: function(){
+    return this.boardFieldsTaken;
+  },
+
   searchField: function(numbers) {
     return this.boardFieldsTaken.find(function(obj) {
       return obj.col === numbers.col && obj.row === numbers.row;
@@ -52,6 +56,10 @@ function SingleShip() {
 
   this.addNewShip = function(shipStartPoint) {
     this.ship = shipStartPoint;
+  };
+
+  this.getTheShip = function(){
+    return this.ship;
   };
 
   //    funkcja zaznacza statek na planszy - do wywalenia
@@ -170,28 +178,27 @@ function addingTripleShipsToTheGrid() {
 
 // //     ---  DOUBLE SHIP    ---
 function addingDoubleShipsToTheGrid() {
-  const doubleShip = new DoubleShip(); // initialisation of double ship
+  const doubleShip = new DoubleShip(); // initialisation of double ship  
+  
+  let shipStartPoint = '';
+  let found = '';
 
-for(let howManyFound = 0; howManyFound<2; ){
-  let shipStartPoint = doubleShip.buildNewShip(); ///     ODKOMENTUJ
-  doubleShip.addNewShip(shipStartPoint);
-  addingFields(doubleShip, 1);
-  //
-  doubleShip.ship.forEach(element => {
-    if (view.searchField(element) === undefined) {
-      howManyFound++;
-     }
-  });
-  if (howManyFound === doubleShip.ship.length) {
-    const updatedView = view.addShipFieldsAsTaken(doubleShip.ship);
-    view.updateTakenFields(updatedView);
-    console.log('updatedView', updatedView);
+  do {
+    shipStartPoint = doubleShip.buildNewShip(); ///     ODKOMENTUJ
+    doubleShip.addNewShip(shipStartPoint);
+    addingFields(doubleShip, 1);
+    const currentBoardFieldsTaken = view.getBoardFieldsTaken();
+    console.log("double ship", doubleShip.ship);
+    found = view.searchField(currentBoardFieldsTaken);
   }
-  //
+  while(found);
+  const currentShipState = doubleShip.getTheShip();
+  const updatedView = view.addShipFieldsAsTaken(currentShipState);
+  view.updateTakenFields(updatedView);
+  console.log('updatedView', updatedView);  
+  
 }
-  console.log("double ship", doubleShip.ship);
-}
-// addingDoubleShipsToTheGrid();
+addingDoubleShipsToTheGrid();
 addingDoubleShipsToTheGrid();
 addingDoubleShipsToTheGrid();
 
@@ -214,22 +221,30 @@ function addingFields(shipSize, steps) {
 // //    ---  SINGLE SHIP ---
 function addingSingleShipsToTheGrid() {
   const singleShip = new SingleShip(); // initialisation of single ship
-  // drawing numbers
-  let shipStartPoint = [{ row: 2, column: 0 }];
-  let isFieldFound = view.searchField(shipStartPoint[0]);
-  while (isFieldFound) {
-    shipStartPoint = singleShip.buildNewShip();
-    isFieldFound = view.searchField(shipStartPoint[0]);
-  }
 
-  view.addShipFieldsAsTaken(shipStartPoint[0]);
-  singleShip.addNewShip(shipStartPoint);
-  singleShip.markTheField(singleShip.ship);
-  console.log(singleShip.ship);
+
+  let shipStartPoint = '';
+  let found = '';
+
+  do {
+    shipStartPoint = singleShip.buildNewShip(); ///     ODKOMENTUJ
+    singleShip.addNewShip(shipStartPoint);
+    
+    const currentBoardFieldsTaken = view.getBoardFieldsTaken();
+    console.log("singleShip ship", singleShip.ship);
+    found = view.searchField(currentBoardFieldsTaken);
+  }
+  while(found);
+  const currentShipState = singleShip.getTheShip();
+  const updatedView = view.addShipFieldsAsTaken(currentShipState);
+  view.updateTakenFields(updatedView);
+  singleShip.markTheField(); // marking the ship
+  console.log('updatedView', updatedView);  
+
 }
-// addingSingleShipsToTheGrid();
-// addingSingleShipsToTheGrid();
-// addingSingleShipsToTheGrid();
-// addingSingleShipsToTheGrid();
+addingSingleShipsToTheGrid();
+addingSingleShipsToTheGrid();
+addingSingleShipsToTheGrid();
+addingSingleShipsToTheGrid();
 
 // console.log("wiev, ", view.boardFieldsTaken);
