@@ -8,21 +8,23 @@ const view = {
   searchField: function(shipFields) {
     for (let i = 0; i < shipFields.length; i++) {
       for (let k = 0; k < this.boardFieldsTaken.length; k++) {
-        console.log(
-          "shipFields",
-          shipFields[i],
-          "this.boardFieldsTaken = ",
-          this.boardFieldsTaken
-        );
+        
+        console.log(shipFields[i].row , this.boardFieldsTaken[k].row);
+        console.log(shipFields[i].column , this.boardFieldsTaken[k].column);
         if (
           shipFields[i].row === this.boardFieldsTaken[k].row &&
-          shipFields[i].col === this.boardFieldsTaken[k].col
+          shipFields[i].column === this.boardFieldsTaken[k].column
         ) {
           console.log("zgadzasie");
+          
+          console.log(shipFields[i].row , this.boardFieldsTaken[k].row);
+          console.log(shipFields[i].column , this.boardFieldsTaken[k].column);
+        
           return true;
         } else {
           return false;
         }
+        console.log('i = ', i,  'k = ', k);
       }
     }
   },
@@ -199,30 +201,33 @@ function addingDoubleShipsToTheGrid(id) {
   const doubleShip = new DoubleShip(id); // initialisation of double ship
   const howManyFieldsToAdd = 1;
 
-  let shipStartPoint = "";
-  let found = "";
-
   // searching for fileds in current excluded list
-  do {
-    shipStartPoint = doubleShip.buildNewShip(); ///     ODKOMENTUJ
-    doubleShip.addNewShip(shipStartPoint);
-    addingFields(doubleShip, howManyFieldsToAdd);
-    const currentShipState = doubleShip.getTheShip();
-    console.log("double ship", doubleShip.ship);
-    found = view.searchField(currentShipState);
-    console.log(found);
-  } while (found);
+  searchForTakenFieldsInTheArray(doubleShip, howManyFieldsToAdd)
+
   const currentShipState = doubleShip.getTheShip();
-  doubleShip.updateShip(currentShipState);
+  doubleShip.updateShip(currentShipState);                          // nie jestem pewien tego !!!
   const updatedView = view.addShipFieldsAsTaken(currentShipState);
   view.updateTakenFields(updatedView);
   doubleShip.markTheField(); // marking the ship
-  console.log("updatedView", updatedView);
-
 }
 addingDoubleShipsToTheGrid(1);
 addingDoubleShipsToTheGrid(2);
 addingDoubleShipsToTheGrid(3);
+
+function searchForTakenFieldsInTheArray(shipSize, howManyFieldsToAdd){
+  let shipStartPoint = "";
+  let found = "";
+
+  do {
+    shipStartPoint = shipSize.buildNewShip(); ///     ODKOMENTUJ
+    shipSize.addNewShip(shipStartPoint);
+    addingFields(shipSize, howManyFieldsToAdd);
+    const currentShipState = shipSize.getTheShip();
+    console.log("double ship", shipSize.ship);
+    found = view.searchField(currentShipState);
+    console.log(found);
+  } while (found);
+}
 
 function addingFields(shipSize, steps) {
   // this function adds another fields to the egzisting ship
@@ -267,3 +272,5 @@ function addingSingleShipsToTheGrid() {
 // addingSingleShipsToTheGrid();
 
 // console.log("wiev, ", view.boardFieldsTaken);
+
+console.log(view.getBoardFieldsTaken());
