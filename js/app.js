@@ -8,8 +8,6 @@ const view = {
   searchField: function(shipFields) {
     for (let i = 0; i < shipFields.length; i++) {
       for (let k = 0; k < this.boardFieldsTaken.length; k++) {
-        console.log('i', i,'k',k);
-        console.log('shipFields.length ', shipFields.length)
         if (
           shipFields[i].row === this.boardFieldsTaken[k].row &&
           shipFields[i].column === this.boardFieldsTaken[k].column
@@ -17,7 +15,7 @@ const view = {
           console.log("zgadzasie");
           return true;
         } else {
-          console.log("mozna dodac");
+          // console.log("mozna dodac");
         }
       }
     }
@@ -165,9 +163,32 @@ function DoubleShip(id) {
 }
 
 // Triple ship
-function TripleShip() {
-  DoubleShip.call(this);
+function TripleShip(id) {
+  DoubleShip.call(this, id);
+
+
+  this.stepsDirectionMade = [];
+  this.stepsRestrictions = {
+    prev0:2,
+    prev1:3,
+    prev2:0,
+    prev3:1,
+    }
+
+   this.getStepMade = function(){
+    return this.stepsDirectionMade;
+  };
+
+  this.setPreviousStep = function(previousStep){
+    return [...this.stepsDirectionMade, previousStep]
+  };
+
+  this.updatePreviousSteps = function(previousSteps){
+    this.stepsDirectionMade = previousSteps;
+  }
 }
+
+
 
 // Quadruple ship
 function QuadrupleShip() {
@@ -175,19 +196,29 @@ function QuadrupleShip() {
 }
 
 //     ---  Quadruole SHIP    ---
-function addingQuadrupleShip() {
-  const quadrupleShip = new QuadrupleShip(); // initialisation of double ship
+function addingQuadrupleShip(id) {
+  const quadrupleShip = new QuadrupleShip(id); // initialisation of double ship
   addingFields(quadrupleShip, 3);
 }
-// addingQuadrupleShip();
+// addingQuadrupleShip(1);
 
 //     ---  TRIPLE SHIP    ---
-function addingTripleShipsToTheGrid() {
-  const tripleShip = new TripleShip(); // initialisation of double ship
-  addingFields(tripleShip, 2);
+function addingTripleShipsToTheGrid(id) {
+  const tripleShip = new TripleShip(id); // initialisation of double ship
+  const howManyFieldsToAdd = 2;
+
+  // searching for fileds in current excluded list
+  searchForTakenFieldsInTheArray(tripleShip, howManyFieldsToAdd)
+
+  const currentShipState = tripleShip.getTheShip();
+  tripleShip.updateShip(currentShipState);                          // nie jestem pewien tego !!!
+  const updatedView = view.addShipFieldsAsTaken(currentShipState);
+  view.updateTakenFields(updatedView);
+  tripleShip.markTheField(); // marking the ship
+  console.log("tripleShip ship", tripleShip.ship);
 }
-// addingTripleShipsToTheGrid();
-// addingTripleShipsToTheGrid();
+addingTripleShipsToTheGrid(2);
+// addingTripleShipsToTheGrid(3);
 
 // //     ---  DOUBLE SHIP    ---
 function addingDoubleShipsToTheGrid(id) {
@@ -201,12 +232,11 @@ function addingDoubleShipsToTheGrid(id) {
   doubleShip.updateShip(currentShipState);                          // nie jestem pewien tego !!!
   const updatedView = view.addShipFieldsAsTaken(currentShipState);
   view.updateTakenFields(updatedView);
-  console.log(view.getBoardFieldsTaken());
   doubleShip.markTheField(); // marking the ship
 }
-addingDoubleShipsToTheGrid(1);
-addingDoubleShipsToTheGrid(2);
-addingDoubleShipsToTheGrid(3);
+// addingDoubleShipsToTheGrid(4);
+// addingDoubleShipsToTheGrid(5);
+// addingDoubleShipsToTheGrid(6);
 
 function searchForTakenFieldsInTheArray(shipSize, howManyFieldsToAdd){
   let shipStartPoint = "";
@@ -217,9 +247,7 @@ function searchForTakenFieldsInTheArray(shipSize, howManyFieldsToAdd){
     shipSize.addNewShip(shipStartPoint);
     addingFields(shipSize, howManyFieldsToAdd);
     const currentShipState = shipSize.getTheShip();
-    console.log("double ship", shipSize.ship);
     found = view.searchField(currentShipState);
-    console.log(found);
   } while (found);
 }
 
@@ -260,10 +288,10 @@ function addingSingleShipsToTheGrid() {
   singleShip.markTheField(); // marking the ship
   console.log("updatedView", updatedView);
 }
-// addingSingleShipsToTheGrid(4);
-// addingSingleShipsToTheGrid();
-// addingSingleShipsToTheGrid();
-// addingSingleShipsToTheGrid();
+// addingSingleShipsToTheGrid(7);
+// addingSingleShipsToTheGrid(8);
+// addingSingleShipsToTheGrid(9);
+// addingSingleShipsToTheGrid(10);
 
 // console.log("wiev, ", view.boardFieldsTaken);
 
