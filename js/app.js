@@ -208,7 +208,7 @@ function addingTripleShipsToTheGrid(id) {
   console.log("tripleShip ship", tripleShip.ship);
 }
 addingTripleShipsToTheGrid(2);
-// addingTripleShipsToTheGrid(3);
+addingTripleShipsToTheGrid(3);
 
 // //     ---  DOUBLE SHIP    ---
 function addingDoubleShipsToTheGrid(id) {
@@ -224,9 +224,9 @@ function addingDoubleShipsToTheGrid(id) {
   view.updateTakenFields(updatedView);
   doubleShip.markTheField(); // marking the ship
 }
-// addingDoubleShipsToTheGrid(4);
-// addingDoubleShipsToTheGrid(5);
-// addingDoubleShipsToTheGrid(6);
+addingDoubleShipsToTheGrid(4);
+addingDoubleShipsToTheGrid(5);
+addingDoubleShipsToTheGrid(6);
 
 function searchForTakenFieldsInTheArray(shipSize, howManyFieldsToAdd){
   let shipStartPoint = "";
@@ -245,14 +245,18 @@ function addingFields(shipSize, steps) {
   // this function adds another fields to the egzisting ship
   for (let i = 0; i < steps; i++) {
 
+
+console.log(shipSize.constructor.name === 'TripleShip');
+
     // and adds another fields to bigger ships
     let nextMove = false;
     let comparedSteps = false;
     let direction = "";
-    while (!nextMove) {
+
+    do {
       direction = shipSize.choseDirection(); // choosing diration of marking
       
-      if(i>0){
+      if(shipSize.constructor.name === 'TripleShip'){
         console.log("it's triple one");
         let lastStep = i-1;
         do {
@@ -264,7 +268,13 @@ function addingFields(shipSize, steps) {
       }
       nextMove = shipSize.checkMove(direction, i); // checking if move is possible
     }
-    shipSize.setStep(direction);
+    while(!nextMove)
+
+if(shipSize.constructor.name === 'TripleShip'){
+  shipSize.setStep(direction);
+}
+      
+
     const newField = shipSize.addNewField(direction, i); // Adding new field to array
     shipSize.updateShip(newField);
     console.log('steps ',shipSize.steps);
