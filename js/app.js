@@ -165,26 +165,16 @@ function DoubleShip(id) {
 // Triple ship
 function TripleShip(id) {
   DoubleShip.call(this, id);
+  this.oposits = [2, 3, 0, 1];        // indeks tabeli [0,1,2,3]ma watrosc wylosowanego kroku, wartosc w indeksie to krok naprzeciwko ktorego nie mozna wykonac 
+  this.steps = [];
+
+  this.setStep = function(step){
+      this.steps = [...this.steps, step];
+  }
 
 
-  this.stepsDirectionMade = [];
-  this.stepsRestrictions = {
-    prev0:2,
-    prev1:3,
-    prev2:0,
-    prev3:1,
-    }
-
-   this.getStepMade = function(){
-    return this.stepsDirectionMade;
-  };
-
-  this.setPreviousStep = function(previousStep){
-    return [...this.stepsDirectionMade, previousStep]
-  };
-
-  this.updatePreviousSteps = function(previousSteps){
-    this.stepsDirectionMade = previousSteps;
+  this.compareSteps = function(nextStep, lastStep){
+      return this.steps[lastStep] === this.oposits[nextStep];
   }
 }
 
@@ -254,18 +244,33 @@ function searchForTakenFieldsInTheArray(shipSize, howManyFieldsToAdd){
 function addingFields(shipSize, steps) {
   // this function adds another fields to the egzisting ship
   for (let i = 0; i < steps; i++) {
+
     // and adds another fields to bigger ships
     let nextMove = false;
+    let comparedSteps = false;
     let direction = "";
     while (!nextMove) {
       direction = shipSize.choseDirection(); // choosing diration of marking
+      
+      if(i>0){
+        console.log("it's triple one");
+        let lastStep = i-1;
+        do {
+          direction = shipSize.choseDirection(); // choosing diration of marking
+          comparedSteps = shipSize.compareSteps(direction, lastStep);
+          console.log('comparedSteps ',comparedSteps)
+        } while(comparedSteps)
+
+      }
       nextMove = shipSize.checkMove(direction, i); // checking if move is possible
     }
+    shipSize.setStep(direction);
     const newField = shipSize.addNewField(direction, i); // Adding new field to array
     shipSize.updateShip(newField);
-    
+    console.log('steps ',shipSize.steps);
   }
 }
+
 
 // //    ---  SINGLE SHIP ---
 function addingSingleShipsToTheGrid() {
