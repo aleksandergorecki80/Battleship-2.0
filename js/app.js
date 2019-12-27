@@ -15,7 +15,7 @@ const view = {
           console.log("zgadzasie");
           return true;
         } else {
-          // console.log("mozna dodac");
+          console.log("mozna dodac");
         }
       }
     }
@@ -181,16 +181,27 @@ function TripleShip(id) {
 
 
 // Quadruple ship
-function QuadrupleShip() {
-  DoubleShip.call(this);
+function QuadrupleShip(id) {
+  DoubleShip.call(this, id);
 }
 
-//     ---  Quadruole SHIP    ---
+//     ---  Quadruople SHIP    ---
 function addingQuadrupleShip(id) {
   const quadrupleShip = new QuadrupleShip(id); // initialisation of double ship
-  addingFields(quadrupleShip, 3);
+  const howManyFieldsToAdd = 3;
+
+  // searching for fileds in current excluded list
+  // inside it there is called next function: addingFields();
+  searchForTakenFieldsInTheArray(quadrupleShip, howManyFieldsToAdd)
+
+  const currentShipState = quadrupleShip.getTheShip();
+  quadrupleShip.updateShip(currentShipState);                          // nie jestem pewien tego !!!
+  const updatedView = view.addShipFieldsAsTaken(currentShipState);
+  view.updateTakenFields(updatedView);
+  quadrupleShip.markTheField(); // marking the ship
+  console.log("quadrupleShip ship", quadrupleShip.ship);
 }
-// addingQuadrupleShip(1);
+addingQuadrupleShip(1);
 
 //     ---  TRIPLE SHIP    ---
 function addingTripleShipsToTheGrid(id) {
@@ -198,6 +209,7 @@ function addingTripleShipsToTheGrid(id) {
   const howManyFieldsToAdd = 2;
 
   // searching for fileds in current excluded list
+  // inside it there is called next function: addingFields();
   searchForTakenFieldsInTheArray(tripleShip, howManyFieldsToAdd)
 
   const currentShipState = tripleShip.getTheShip();
@@ -216,6 +228,7 @@ function addingDoubleShipsToTheGrid(id) {
   const howManyFieldsToAdd = 1;
 
   // searching for fileds in current excluded list
+  // inside it there is called next function: addingFields();
   searchForTakenFieldsInTheArray(doubleShip, howManyFieldsToAdd)
 
   const currentShipState = doubleShip.getTheShip();
@@ -223,6 +236,7 @@ function addingDoubleShipsToTheGrid(id) {
   const updatedView = view.addShipFieldsAsTaken(currentShipState);
   view.updateTakenFields(updatedView);
   doubleShip.markTheField(); // marking the ship
+  console.log("double ship", doubleShip.ship);
 }
 addingDoubleShipsToTheGrid(4);
 addingDoubleShipsToTheGrid(5);
@@ -285,28 +299,23 @@ if(shipSize.constructor.name === 'TripleShip'){
 // //    ---  SINGLE SHIP ---
 function addingSingleShipsToTheGrid() {
   const singleShip = new SingleShip(); // initialisation of single ship
+  const howManyFieldsToAdd = 0;
 
-  let shipStartPoint = "";
-  let found = "";
+  // searching for fileds in current excluded list
+  // inside it there is called next function: addingFields();
+  searchForTakenFieldsInTheArray(singleShip, howManyFieldsToAdd)
 
-  do {
-    shipStartPoint = singleShip.buildNewShip(); ///     ODKOMENTUJ
-    singleShip.addNewShip(shipStartPoint);
-
-    const currentBoardFieldsTaken = view.getBoardFieldsTaken();
-    console.log("singleShip ship", singleShip.ship);
-    found = view.searchField(currentBoardFieldsTaken);
-  } while (found);
   const currentShipState = singleShip.getTheShip();
+  singleShip.updateShip(currentShipState);                          // nie jestem pewien tego !!!
   const updatedView = view.addShipFieldsAsTaken(currentShipState);
   view.updateTakenFields(updatedView);
   singleShip.markTheField(); // marking the ship
-  console.log("updatedView", updatedView);
+  console.log("singleShip ship", singleShip.ship);
 }
-// addingSingleShipsToTheGrid(7);
-// addingSingleShipsToTheGrid(8);
-// addingSingleShipsToTheGrid(9);
-// addingSingleShipsToTheGrid(10);
+addingSingleShipsToTheGrid(7);
+addingSingleShipsToTheGrid(8);
+addingSingleShipsToTheGrid(9);
+addingSingleShipsToTheGrid(10);
 
 // console.log("wiev, ", view.boardFieldsTaken);
 
