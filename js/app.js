@@ -1,5 +1,7 @@
 const view = {
   boardFieldsTaken: [],
+  surroundings: [],
+  surroundings2: [],
 
   getBoardFieldsTaken: function() {
     return this.boardFieldsTaken;
@@ -28,6 +30,52 @@ const view = {
   updateTakenFields: function(data) {
     this.boardFieldsTaken = data;
   },
+
+
+  //  surrounding section
+
+  addSurroundings: function(fields) {
+    return fields.map(field => {
+      let newArray = [
+        { row: field.row, column: field.column + 1 },
+        { row: field.row + 1, column: field.column + 1 },
+        { row: field.row + 1, column: field.column },
+        { row: field.row + 1, column: field.column - 1 },
+        { row: field.row, column: field.column - 1 },
+        { row: field.row - 1, column: field.column - 1 },
+        { row: field.row - 1, column: field.column },
+        { row: field.row - 1, column: field.column + 1 }
+      ];
+      return newArray;
+    });
+  },
+
+  pushAllSurroundingsToOneArray: function(shipSurroundings){
+    shipSurroundings.forEach(element1 => {
+      element1.forEach(element => {
+        this.surroundings.push(element);
+      });
+    });
+  },
+
+  pushOneOccurrenceOfFieldToSurroundings: function(arr) {
+    for (i = 0; i < arr.length; i++) {
+      let foundOnTakenList = this.boardFieldsTaken.find(element => {
+        return (element.row === arr[i].row && element.column === arr[i].column) 
+                || (arr[i].row<0 || arr[i].column<0)
+                || (arr[i].row>9 || arr[i].column>9);
+      });
+      if (!foundOnTakenList) {
+        this.boardFieldsTaken.push(arr[i]);
+      }
+    }
+  },
+
+  getSurroundings: function(){
+    return this.surroundings;
+  },
+
+  //
 
   markFieldsAsTaken: function(object) {
     console.log(object);
@@ -182,7 +230,7 @@ function TripleShip(id) {
 
 // Quadruple ship
 function QuadrupleShip(id) {
-  DoubleShip.call(this, id);
+  TripleShip.call(this, id);
 }
 
 //     ---  Quadruople SHIP    ---
@@ -197,11 +245,24 @@ function addingQuadrupleShip(id) {
   const currentShipState = quadrupleShip.getTheShip();
   quadrupleShip.updateShip(currentShipState);                          // nie jestem pewien tego !!!
   const updatedView = view.addShipFieldsAsTaken(currentShipState);
-  view.updateTakenFields(updatedView);
+  view.updateTakenFields(updatedView);              // dodaje pola do wykluszeń
+ 
+ 
+  const shipSurrounding = view.addSurroundings(currentShipState);                // add sourounding of the ship
+  view.pushAllSurroundingsToOneArray(shipSurrounding);      // pushes all suroundings into one array
+  
+  const suroundingsArr = view.getSurroundings();
+  console.log('suroundingsArr', suroundingsArr);
+  view.pushOneOccurrenceOfFieldToSurroundings(suroundingsArr);
+
   quadrupleShip.markTheField(); // marking the ship
   console.log("quadrupleShip ship", quadrupleShip.ship);
 }
 addingQuadrupleShip(1);
+console.log('view.surroundings', view.surroundings);
+console.log('view.surroundings2', view.surroundings2);
+console.log('view.boardFieldsTaken', view.boardFieldsTaken);
+
 
 //     ---  TRIPLE SHIP    ---
 function addingTripleShipsToTheGrid(id) {
@@ -219,8 +280,9 @@ function addingTripleShipsToTheGrid(id) {
   tripleShip.markTheField(); // marking the ship
   console.log("tripleShip ship", tripleShip.ship);
 }
-addingTripleShipsToTheGrid(2);
-addingTripleShipsToTheGrid(3);
+
+// addingTripleShipsToTheGrid(2);
+// addingTripleShipsToTheGrid(3);
 
 // //     ---  DOUBLE SHIP    ---
 function addingDoubleShipsToTheGrid(id) {
@@ -238,9 +300,9 @@ function addingDoubleShipsToTheGrid(id) {
   doubleShip.markTheField(); // marking the ship
   console.log("double ship", doubleShip.ship);
 }
-addingDoubleShipsToTheGrid(4);
-addingDoubleShipsToTheGrid(5);
-addingDoubleShipsToTheGrid(6);
+// addingDoubleShipsToTheGrid(4);
+// addingDoubleShipsToTheGrid(5);
+// addingDoubleShipsToTheGrid(6);
 
 function searchForTakenFieldsInTheArray(shipSize, howManyFieldsToAdd){
   let shipStartPoint = "";
@@ -260,7 +322,7 @@ function addingFields(shipSize, steps) {
   for (let i = 0; i < steps; i++) {
 
 
-console.log(shipSize.constructor.name === 'TripleShip');
+// console.log(shipSize.constructor.name);
 
     // and adds another fields to bigger ships
     let nextMove = false;
@@ -270,28 +332,26 @@ console.log(shipSize.constructor.name === 'TripleShip');
     do {
       direction = shipSize.choseDirection(); // choosing diration of marking
       
-      if(shipSize.constructor.name === 'TripleShip'){
-        console.log("it's triple one");
+      if(shipSize.constructor.name === 'TripleShip' || shipSize.constructor.name === 'QuadrupleShip'){
         let lastStep = i-1;
         do {
           direction = shipSize.choseDirection(); // choosing diration of marking
           comparedSteps = shipSize.compareSteps(direction, lastStep);
-          console.log('comparedSteps ',comparedSteps)
-        } while(comparedSteps)
+          } while(comparedSteps)
 
       }
       nextMove = shipSize.checkMove(direction, i); // checking if move is possible
     }
     while(!nextMove)
 
-if(shipSize.constructor.name === 'TripleShip'){
+    if(shipSize.constructor.name === 'TripleShip' || shipSize.constructor.name === 'QuadrupleShip'){
   shipSize.setStep(direction);
 }
       
 
     const newField = shipSize.addNewField(direction, i); // Adding new field to array
     shipSize.updateShip(newField);
-    console.log('steps ',shipSize.steps);
+    
   }
 }
 
@@ -312,10 +372,10 @@ function addingSingleShipsToTheGrid() {
   singleShip.markTheField(); // marking the ship
   console.log("singleShip ship", singleShip.ship);
 }
-addingSingleShipsToTheGrid(7);
-addingSingleShipsToTheGrid(8);
-addingSingleShipsToTheGrid(9);
-addingSingleShipsToTheGrid(10);
+// addingSingleShipsToTheGrid(7);
+// addingSingleShipsToTheGrid(8);
+// addingSingleShipsToTheGrid(9);
+// addingSingleShipsToTheGrid(10);
 
 // console.log("wiev, ", view.boardFieldsTaken);
 
