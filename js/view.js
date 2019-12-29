@@ -14,10 +14,10 @@ const view = {
             shipFields[i].row === this.boardFieldsTaken[k].row &&
             shipFields[i].column === this.boardFieldsTaken[k].column
           ) {
-            console.log("zgadzasie");
+            // console.log("zgadzasie");
             return true;
           } else {
-            console.log("mozna dodac");
+            // console.log("mozna dodac");
           }
         }
       }

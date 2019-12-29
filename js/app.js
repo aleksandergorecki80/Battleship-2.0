@@ -1,5 +1,3 @@
-
-
 //              ------    Ships section     --------------
 // Single Ships
 
@@ -147,17 +145,9 @@ function addingQuadrupleShip(id) {
   const updatedView = view.addShipFieldsAsTaken(currentShipState);
   view.updateTakenFields(updatedView);              // dodaje pola do wykluszeń
   
-  addShipSuroundingToTheBoarf(currentShipState);
-  // const shipSurrounding = view.addSurroundings(currentShipState);                // add sourounding of the ship
-  // view.pushAllSurroundingsToOneArray(shipSurrounding);      // pushes all suroundings into one array
-  // const suroundingsArr = view.getSurroundings();
-  // view.pushOneOccurrenceOfFieldToSurroundings(suroundingsArr);
+  addShipSuroundingToTheBoarf(currentShipState);        // add sourounding of the ship
 
   quadrupleShip.markTheField(); // marking the ship
-
-  console.log('view.surroundings', view.surroundings);
-  console.log('view.boardFieldsTaken', view.boardFieldsTaken);  
-  console.log("quadrupleShip ship", quadrupleShip.ship);
 }
 addingQuadrupleShip(1);
 
@@ -179,12 +169,7 @@ function addingTripleShipsToTheGrid(id) {
 
   addShipSuroundingToTheBoarf(currentShipState);
   tripleShip.markTheField(); // marking the ship
-
-  console.log('view.surroundings', view.surroundings);
-  console.log('view.boardFieldsTaken', view.boardFieldsTaken);
-  console.log("tripleShip ship", tripleShip.ship);
 }
-
 
 addingTripleShipsToTheGrid(2);
 addingTripleShipsToTheGrid(3);
@@ -209,23 +194,12 @@ function addingDoubleShipsToTheGrid(id) {
 
 //
 addShipSuroundingToTheBoarf(currentShipState);
-// const shipSurrounding = view.addSurroundings(currentShipState);                // add sourounding of the ship
-// view.pushAllSurroundingsToOneArray(shipSurrounding);      // pushes all suroundings into one array
-// const suroundingsArr = view.getSurroundings();
-// view.pushOneOccurrenceOfFieldToSurroundings(suroundingsArr);
-//
-console.log('view.surroundings', view.surroundings);
-console.log('view.boardFieldsTaken', view.boardFieldsTaken);
 doubleShip.markTheField(); // marking the ship
-  console.log("double ship", doubleShip.ship);
+
 }
 addingDoubleShipsToTheGrid(4);
 addingDoubleShipsToTheGrid(5);
 addingDoubleShipsToTheGrid(6);
-
-
-
-
 
 
 // //    ---  SINGLE SHIP ---
@@ -243,9 +217,7 @@ function addingSingleShipsToTheGrid() {
   view.updateTakenFields(updatedView);
   addShipSuroundingToTheBoarf(currentShipState);
   singleShip.markTheField(); // marking the ship
-  console.log('view.surroundings', view.surroundings);
-console.log('view.boardFieldsTaken', view.boardFieldsTaken);
-  console.log("singleShip ship", singleShip.ship);
+
 }
 addingSingleShipsToTheGrid(7);
 addingSingleShipsToTheGrid(8);
@@ -292,7 +264,6 @@ function addingFields(shipSize, steps) {
         do {
           direction = shipSize.choseDirection(); // choosing diration of marking
           comparedSteps = shipSize.compareSteps(direction, lastStep);
-          console.log('comparedSteps', comparedSteps);
           } while(comparedSteps)
 
       }
@@ -305,6 +276,5 @@ function addingFields(shipSize, steps) {
 }
     const newField = shipSize.addNewField(direction, i); // Adding new field to array
     shipSize.updateShip(newField);
-    console.log('steps', shipSize.steps);
   }
 }

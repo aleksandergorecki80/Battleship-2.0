@@ -16,7 +16,7 @@ function printRows(id) {
       const tr = document.getElementById(trId);
       var td = document.createElement("td");
       tr.appendChild(td);
-  
+      td.classList.add('field');
       td.id = `${trId}-${i}`;
       td.innerHTML = `${trId}-${i}`; // to do usunięcia
     }
