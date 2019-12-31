@@ -1,3 +1,5 @@
+//    -----     Board object   ----
+
 const view = {
     boardFieldsTaken: [],
     surroundings: [],
