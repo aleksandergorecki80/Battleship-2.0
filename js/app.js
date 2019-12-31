@@ -148,8 +148,9 @@ function addingQuadrupleShip(id) {
   addShipSuroundingToTheBoarf(currentShipState);        // add sourounding of the ship
 
   quadrupleShip.markTheField(); // marking the ship
+  return quadrupleShip;
 }
-addingQuadrupleShip(1);
+const ShipQuadrupleIdZero = addingQuadrupleShip(0);
 
 
 
@@ -169,10 +170,11 @@ function addingTripleShipsToTheGrid(id) {
 
   addShipSuroundingToTheBoarf(currentShipState);
   tripleShip.markTheField(); // marking the ship
+ return tripleShip;
 }
 
-addingTripleShipsToTheGrid(2);
-addingTripleShipsToTheGrid(3);
+const tripleShipIdOne = addingTripleShipsToTheGrid(1);
+const tripleShipIdTwo = addingTripleShipsToTheGrid(2);
 
 
 
@@ -195,16 +197,16 @@ function addingDoubleShipsToTheGrid(id) {
 //
 addShipSuroundingToTheBoarf(currentShipState);
 doubleShip.markTheField(); // marking the ship
-
+return doubleShip;
 }
-addingDoubleShipsToTheGrid(4);
-addingDoubleShipsToTheGrid(5);
-addingDoubleShipsToTheGrid(6);
+const doubleShipIdThree = addingDoubleShipsToTheGrid(3);
+const doubleShipIdFour = addingDoubleShipsToTheGrid(4);
+const doubleShipIdFive = addingDoubleShipsToTheGrid(5);
 
 
 // //    ---  SINGLE SHIP ---
-function addingSingleShipsToTheGrid() {
-  const singleShip = new SingleShip(); // initialisation of single ship
+function addingSingleShipsToTheGrid(id) {
+  const singleShip = new SingleShip(id); // initialisation of single ship
   const howManyFieldsToAdd = 0;
 
   // searching for fileds in current excluded list
@@ -217,13 +219,12 @@ function addingSingleShipsToTheGrid() {
   view.updateTakenFields(updatedView);
   addShipSuroundingToTheBoarf(currentShipState);
   singleShip.markTheField(); // marking the ship
-
+  return singleShip;
 }
-addingSingleShipsToTheGrid(7);
-addingSingleShipsToTheGrid(8);
-addingSingleShipsToTheGrid(9);
-addingSingleShipsToTheGrid(10);
-
+const singleShipIdSix = addingSingleShipsToTheGrid(6);
+const singleShipIdSeven = addingSingleShipsToTheGrid(7);
+const singleShipIdEight = addingSingleShipsToTheGrid(8);
+// const singleShipIdNine = addingSingleShipsToTheGrid(9);
 
 
 function addShipSuroundingToTheBoarf(currentShipState){
@@ -278,3 +279,4 @@ function addingFields(shipSize, steps) {
     shipSize.updateShip(newField);
   }
 }
+

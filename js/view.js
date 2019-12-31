@@ -75,6 +75,15 @@ const view = {
       return this.surroundings;
     },
   
+    // functions for action section
+    // find clicked element on list
+    findClickedFieldOnList: function(clickedField){
+     return this.boardFieldsTaken.find(element => {
+        if(element.row === clickedField.row && element.column === clickedField.column){
+          return element
+        } 
+      });
+    },
     //
   
     markFieldsAsTaken: function(object) {
