@@ -118,22 +118,25 @@ function addingFields(shipSize, steps) {
           console.log('direction', direction);
           comparedSteps = shipSize.compareSteps(direction, lastStep);
           console.log('comparedSteps', comparedSteps);  
-        } while(comparedSteps)
-        
+        } while(comparedSteps)  
         nextMove = shipSize.checkMove(direction, i); // checking if move is possible
       } 
       else {
         direction = shipSize.choseDirection(); // choosing diration of marking
+        console.log('first direction', direction);
         nextMove = shipSize.checkMove(direction, i); // checking if move is possible
       }
-      
+
+      if((shipSize.constructor.name === 'TripleShip' 
+      || shipSize.constructor.name === 'QuadrupleShip'
+      && comparedSteps === false
+      )){
+    shipSize.setStep(direction);
+  }
     }
     while(!nextMove)
 
-    if(shipSize.constructor.name === 'TripleShip' 
-    || shipSize.constructor.name === 'QuadrupleShip'){
-  shipSize.setStep(direction);
-}
+
     const newField = shipSize.addNewField(direction, i); // Adding new field to array
     shipSize.updateShip(newField);
   }
