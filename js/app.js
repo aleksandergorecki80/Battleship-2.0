@@ -36,6 +36,7 @@ function addingTripleShipsToTheGrid(id) {
 
   addShipSuroundingToTheBoarf(currentShipState);
   tripleShip.markTheField(); // marking the ship
+  console.log(tripleShip)
  return tripleShip;
 }
 
@@ -109,27 +110,28 @@ function addingFields(shipSize, steps) {
     let direction = "";
 
     do {
-      
-      
-      if(shipSize.constructor.name === 'TripleShip' || 
-      shipSize.constructor.name === 'QuadrupleShip'){
+      if((shipSize.constructor.name === 'TripleShip' || 
+      shipSize.constructor.name === 'QuadrupleShip') && i>0){
         let lastStep = i-1;
         do {
           direction = shipSize.choseDirection(); // choosing diration of marking
-          console.log(direction);
+          console.log('direction', direction);
           comparedSteps = shipSize.compareSteps(direction, lastStep);
-          console.log(comparedSteps);  
+          console.log('comparedSteps', comparedSteps);  
         } while(comparedSteps)
-
-      }else {
+        
+        nextMove = shipSize.checkMove(direction, i); // checking if move is possible
+      } 
+      else {
         direction = shipSize.choseDirection(); // choosing diration of marking
+        nextMove = shipSize.checkMove(direction, i); // checking if move is possible
       }
       
-      nextMove = shipSize.checkMove(direction, i); // checking if move is possible
     }
     while(!nextMove)
 
-    if(shipSize.constructor.name === 'TripleShip' || shipSize.constructor.name === 'QuadrupleShip'){
+    if(shipSize.constructor.name === 'TripleShip' 
+    || shipSize.constructor.name === 'QuadrupleShip'){
   shipSize.setStep(direction);
 }
     const newField = shipSize.addNewField(direction, i); // Adding new field to array
@@ -143,24 +145,24 @@ function addShipToTheShipsList(shipToAdd){
   return shipsList.push(shipToAdd);
 }
 
-const ShipQuadrupleIdZero = addingQuadrupleShip(0);
-addShipToTheShipsList(ShipQuadrupleIdZero);
+// const ShipQuadrupleIdZero = addingQuadrupleShip(0);
+// addShipToTheShipsList(ShipQuadrupleIdZero);
 const tripleShipIdOne = addingTripleShipsToTheGrid(1);
 addShipToTheShipsList(tripleShipIdOne);
 const tripleShipIdTwo = addingTripleShipsToTheGrid(2);
 addShipToTheShipsList(tripleShipIdTwo);
-const doubleShipIdThree = addingDoubleShipsToTheGrid(3);
-addShipToTheShipsList(doubleShipIdThree);
-const doubleShipIdFour = addingDoubleShipsToTheGrid(4);
-addShipToTheShipsList(doubleShipIdFour);
-const doubleShipIdFive = addingDoubleShipsToTheGrid(5);
-addShipToTheShipsList(doubleShipIdFive);
-const singleShipIdSix = addingSingleShipsToTheGrid(6);
-addShipToTheShipsList(singleShipIdSix);
-const singleShipIdSeven = addingSingleShipsToTheGrid(7);
-addShipToTheShipsList(singleShipIdSeven);
-const singleShipIdEight = addingSingleShipsToTheGrid(8);
-addShipToTheShipsList(singleShipIdEight);
-const singleShipIdNine = addingSingleShipsToTheGrid(9);
-addShipToTheShipsList(singleShipIdNine);
-console.log(shipsList);
+// const doubleShipIdThree = addingDoubleShipsToTheGrid(3);
+// addShipToTheShipsList(doubleShipIdThree);
+// const doubleShipIdFour = addingDoubleShipsToTheGrid(4);
+// addShipToTheShipsList(doubleShipIdFour);
+// const doubleShipIdFive = addingDoubleShipsToTheGrid(5);
+// addShipToTheShipsList(doubleShipIdFive);
+// const singleShipIdSix = addingSingleShipsToTheGrid(6);
+// addShipToTheShipsList(singleShipIdSix);
+// const singleShipIdSeven = addingSingleShipsToTheGrid(7);
+// addShipToTheShipsList(singleShipIdSeven);
+// const singleShipIdEight = addingSingleShipsToTheGrid(8);
+// addShipToTheShipsList(singleShipIdEight);
+// const singleShipIdNine = addingSingleShipsToTheGrid(9);
+// addShipToTheShipsList(singleShipIdNine);
+// console.log(shipsList);
