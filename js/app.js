@@ -1,17 +1,5 @@
 // -------- Setig up the ships on the grid ------
 
-const shipsList = [
-  {name: 'quadrupleShip'}
-];
-
-
-function Test(id){
-  this.id = id;
-}
-
-shipsList[0].name = new Test(44);
-console.log(shipsList);
-
 //     ---  Quadruople SHIP    ---
 function addingQuadrupleShip(id) {
   const quadrupleShip = new QuadrupleShip(id); // initialisation of double ship
@@ -31,9 +19,6 @@ function addingQuadrupleShip(id) {
   quadrupleShip.markTheField(); // marking the ship
   return quadrupleShip;
 }
-const ShipQuadrupleIdZero = addingQuadrupleShip(0);
-
-
 
 //     ---  TRIPLE SHIP    ---
 function addingTripleShipsToTheGrid(id) {
@@ -54,13 +39,6 @@ function addingTripleShipsToTheGrid(id) {
  return tripleShip;
 }
 
-const tripleShipIdOne = addingTripleShipsToTheGrid(1);
-const tripleShipIdTwo = addingTripleShipsToTheGrid(2);
-
-
-
-
-
 // //     ---  DOUBLE SHIP    ---
 function addingDoubleShipsToTheGrid(id) {
   const doubleShip = new DoubleShip(id); // initialisation of double ship
@@ -80,10 +58,6 @@ addShipSuroundingToTheBoarf(currentShipState);
 doubleShip.markTheField(); // marking the ship
 return doubleShip;
 }
-const doubleShipIdThree = addingDoubleShipsToTheGrid(3);
-const doubleShipIdFour = addingDoubleShipsToTheGrid(4);
-const doubleShipIdFive = addingDoubleShipsToTheGrid(5);
-
 
 // //    ---  SINGLE SHIP ---
 function addingSingleShipsToTheGrid(id) {
@@ -102,10 +76,6 @@ function addingSingleShipsToTheGrid(id) {
   singleShip.markTheField(); // marking the ship
   return singleShip;
 }
-const singleShipIdSix = addingSingleShipsToTheGrid(6);
-const singleShipIdSeven = addingSingleShipsToTheGrid(7);
-const singleShipIdEight = addingSingleShipsToTheGrid(8);
-// const singleShipIdNine = addingSingleShipsToTheGrid(9);
 
 
 function addShipSuroundingToTheBoarf(currentShipState){
@@ -139,16 +109,22 @@ function addingFields(shipSize, steps) {
     let direction = "";
 
     do {
-      direction = shipSize.choseDirection(); // choosing diration of marking
       
-      if(shipSize.constructor.name === 'TripleShip' || shipSize.constructor.name === 'QuadrupleShip'){
+      
+      if(shipSize.constructor.name === 'TripleShip' || 
+      shipSize.constructor.name === 'QuadrupleShip'){
         let lastStep = i-1;
         do {
           direction = shipSize.choseDirection(); // choosing diration of marking
+          console.log(direction);
           comparedSteps = shipSize.compareSteps(direction, lastStep);
-          } while(comparedSteps)
+          console.log(comparedSteps);  
+        } while(comparedSteps)
 
+      }else {
+        direction = shipSize.choseDirection(); // choosing diration of marking
       }
+      
       nextMove = shipSize.checkMove(direction, i); // checking if move is possible
     }
     while(!nextMove)
@@ -161,3 +137,30 @@ function addingFields(shipSize, steps) {
   }
 }
 
+const shipsList = [];
+
+function addShipToTheShipsList(shipToAdd){
+  return shipsList.push(shipToAdd);
+}
+
+const ShipQuadrupleIdZero = addingQuadrupleShip(0);
+addShipToTheShipsList(ShipQuadrupleIdZero);
+const tripleShipIdOne = addingTripleShipsToTheGrid(1);
+addShipToTheShipsList(tripleShipIdOne);
+const tripleShipIdTwo = addingTripleShipsToTheGrid(2);
+addShipToTheShipsList(tripleShipIdTwo);
+const doubleShipIdThree = addingDoubleShipsToTheGrid(3);
+addShipToTheShipsList(doubleShipIdThree);
+const doubleShipIdFour = addingDoubleShipsToTheGrid(4);
+addShipToTheShipsList(doubleShipIdFour);
+const doubleShipIdFive = addingDoubleShipsToTheGrid(5);
+addShipToTheShipsList(doubleShipIdFive);
+const singleShipIdSix = addingSingleShipsToTheGrid(6);
+addShipToTheShipsList(singleShipIdSix);
+const singleShipIdSeven = addingSingleShipsToTheGrid(7);
+addShipToTheShipsList(singleShipIdSeven);
+const singleShipIdEight = addingSingleShipsToTheGrid(8);
+addShipToTheShipsList(singleShipIdEight);
+const singleShipIdNine = addingSingleShipsToTheGrid(9);
+addShipToTheShipsList(singleShipIdNine);
+console.log(shipsList);

@@ -4,6 +4,7 @@
 function SingleShip(id) {
     this.ship = [];
     this.id = id;
+    this.hitShip = [];
   
     this.buildNewShip = function() {
       this.ship.row = Math.floor(Math.random() * 10);
@@ -19,6 +20,8 @@ function SingleShip(id) {
       return this.ship;
     };
   
+    
+
     // Update a ship
     this.updateShip = function(updatedShip) {
       this.ship = updatedShip;
