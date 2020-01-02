@@ -25,47 +25,68 @@ function addingTripleAndQuadrupleShip(id) {
   const tripleShip = new TripleAndQuadrupleShip(id, 3); // initialisation of double ship
   const howManyFieldsToAdd = tripleShip.getNumberOfFields() - 1;
 
-  let arrayOfFields = tripleShip.buildNewShip(); ///     ODKOMENTUJ
+  // checking for fields in boardFieldsTaken
 
-  let isNextMovePossible = false;
-  let direction = '';
-  for (let i = 0; i < howManyFieldsToAdd; i++) {
-    do{
-      if(i>0){
-        let areStepsOpposite = true;
-        const indexOfLastStep = i-1;
-        do{
+
+  let arrayOfFields = '';
+  let found = true;
+  do {
+    arrayOfFields = tripleShip.buildNewShip();
+    let isNextMovePossible = false;
+    let direction = "";
+    for (let i = 0; i < howManyFieldsToAdd; i++) {
+      do {
+        if (i > 0) {
+          let areStepsOpposite = true;
+          const indexOfLastStep = i - 1;
+          do {
+            direction = tripleShip.choseDirection(); // choosing diration of marking
+            areStepsOpposite = tripleShip.compareSteps(
+              indexOfLastStep,
+              direction
+            );
+            console.log("areStepsOpposite = ", areStepsOpposite);
+          } while (areStepsOpposite); /// checking if steps are not oposite (in more then two size chip)
+          console.log("direction = ", direction);
+          isNextMovePossible = tripleShip.checkMove(
+            arrayOfFields,
+            direction,
+            i
+          ); // checking if move is possible
+        } else {
           direction = tripleShip.choseDirection(); // choosing diration of marking
-          areStepsOpposite = tripleShip.compareSteps(indexOfLastStep, direction);
-          console.log('areStepsOpposite = ', areStepsOpposite);
+          console.log("direction = ", direction);
+          isNextMovePossible = tripleShip.checkMove(arrayOfFields, direction, i); // checking if move is possible
         }
-        while(areStepsOpposite)
-        console.log('i jest wieksze od 0')
-        
-        console.log("direction = ", direction);
-        isNextMovePossible = tripleShip.checkMove(arrayOfFields, direction, i); // checking if move is possible
-      }
-else {
-  console.log('i jest  0')
-  direction = tripleShip.choseDirection(); // choosing diration of marking
-  console.log("direction = ", direction);
-  isNextMovePossible = tripleShip.checkMove(arrayOfFields, direction, i); // checking if move is possible
-}
-  
-      if (isNextMovePossible) {
-        arrayOfFields = tripleShip.addNewField(arrayOfFields, direction, i);
-        tripleShip.setStep(direction);
-        console.log("arrayOfFields = ", arrayOfFields);
-      } else {
-        console.log("Nie moge dodas pola");
-      }
+
+        if (isNextMovePossible) {
+          arrayOfFields = tripleShip.addNewField(arrayOfFields, direction, i);
+          tripleShip.setStep(direction);
+          console.log("arrayOfFields = ", arrayOfFields);
+        } else {
+          console.log("Nie moge dodas pola");
+        }
+      } while (!isNextMovePossible); /// checking if steps are in the grid
     }
-    while(!isNextMovePossible)
+    found = view.searchField(arrayOfFields);
+    console.log("found", found);
+  } while (found); ///               checking if fields arent taken by other ship !!! NIE DZIAŁA
 
-  }
+  
 
+  // Add fields to the ship state
   tripleShip.setTheShip(arrayOfFields);
   console.log(tripleShip);
+  
+  // Add ship fields to the taken fields on the board
+  const shipFields = tripleShip.getTheShip()
+  const updatedView = view.addShipFieldsAsTaken(shipFields);
+  view.updateTakenFields(updatedView);
+  
+  //Add fields around
+  addShipSuroundingToTheBoard(shipFields);
+  
+  tripleShip.markTheField();
   return tripleShip;
 }
 
@@ -107,7 +128,7 @@ function addingSingleShipsToTheGrid(id) {
   return singleShip;
 }
 
-function addShipSuroundingToTheBoarf(currentShipState) {
+function addShipSuroundingToTheBoard(currentShipState) {
   //
   const shipSurrounding = view.addSurroundings(currentShipState); // add sourounding of the ship
   view.pushAllSurroundingsToOneArray(shipSurrounding); // pushes all suroundings into one array
@@ -199,8 +220,8 @@ function addShipToTheShipsList(shipToAdd) {
 // addShipToTheShipsList(ShipQuadrupleIdZero);
 const tripleShipIdOne = addingTripleAndQuadrupleShip(1, 3);
 addShipToTheShipsList(tripleShipIdOne);
-// const tripleShipIdTwo = addingTripleAndQuadrupleShip(2, 3);
-// addShipToTheShipsList(tripleShipIdTwo);
+const tripleShipIdTwo = addingTripleAndQuadrupleShip(2, 3);
+addShipToTheShipsList(tripleShipIdTwo);
 // const doubleShipIdThree = addingDoubleShipsToTheGrid(3);
 // addShipToTheShipsList(doubleShipIdThree);
 // const doubleShipIdFour = addingDoubleShipsToTheGrid(4);
@@ -216,3 +237,6 @@ addShipToTheShipsList(tripleShipIdOne);
 // const singleShipIdNine = addingSingleShipsToTheGrid(9);
 // addShipToTheShipsList(singleShipIdNine);
 // console.log(shipsList);
+
+
+console.log(view);
