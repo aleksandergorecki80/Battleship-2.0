@@ -1,9 +1,10 @@
 //              ------    Ships classes section     --------------
 // Single Ships
 
-function SingleShip(id) {
+function SingleShip(id, numberOfFields) {
     this.ship = [];
     this.id = id;
+    this.numberOfFields = numberOfFields;
     this.hitShip = [];
   
     this.buildNewShip = function() {
@@ -12,20 +13,22 @@ function SingleShip(id) {
       return [{ id: this.id, row: this.ship.row, column: this.ship.column }];
     };
   
-    this.addNewShip = function(shipStartPoint) {
-      this.ship = shipStartPoint;
+
+     // Set a ship
+     this.setTheShip = function(updatedShip) {
+      this.ship = updatedShip;
     };
-  
     this.getTheShip = function() {
       return this.ship;
+    };
+
+    this.getNumberOfFields = function(){
+      return this.numberOfFields;
     };
   
     
 
-    // Update a ship
-    this.updateShip = function(updatedShip) {
-      this.ship = updatedShip;
-    };
+ 
   
     //    funkcja zaznacza statek na planszy - do wywalenia
     this.markTheField = function() {
@@ -38,8 +41,8 @@ function SingleShip(id) {
   }
   
   // Double ship
-  function DoubleShip(id) {
-    SingleShip.call(this, id);
+  function DoubleShip(id, numberOfFields) {
+    SingleShip.call(this, id, numberOfFields);
   
     // Function determins next move 0-right 1-down 2-left 3-up
     this.choseDirection = function() {
@@ -47,63 +50,64 @@ function SingleShip(id) {
     };
   
     // Check if a move is posible
-    this.checkMove = function(direction, previousArrPosition) {
+    this.checkMove = function(arrayOfFields, direction, previousArrPosition) {
+      // console.log('checkMove =', arrayOfFields, direction, previousArrPosition)
       switch (direction) {
         case 0:
-          return this.ship[previousArrPosition].column + 1 < 10;
+          return arrayOfFields[previousArrPosition].column + 1 < 10;
           break;
         case 1:
-          return this.ship[previousArrPosition].row + 1 < 10;
+          return arrayOfFields[previousArrPosition].row + 1 < 10;
           break;
         case 2:
-          return this.ship[previousArrPosition].column - 1 >= 0;
+          return arrayOfFields[previousArrPosition].column - 1 >= 0;
           break;
         case 3:
-          return this.ship[previousArrPosition].row - 1 >= 0;
+          return arrayOfFields[previousArrPosition].row - 1 >= 0;
           break;
       }
     };
   
     // Adding a next field to a existing ship
-    this.addNewField = function(direction, previousArrPosition) {
+    this.addNewField = function(arrayOfFields, direction, previousArrPosition) {
       switch (direction) {
         case 0:
           return [
-            ...this.ship,
+            ...arrayOfFields,
             {
-              id: this.id,
-              row: this.ship[previousArrPosition].row,
-              column: this.ship[previousArrPosition].column + 1
+              id: arrayOfFields[previousArrPosition].id,
+              row: arrayOfFields[previousArrPosition].row,
+              column: arrayOfFields[previousArrPosition].column + 1
             }
           ];
           break;
         case 1:
           return [
-            ...this.ship,
+            ...arrayOfFields,
             {
-              id: this.id,
-              row: this.ship[previousArrPosition].row + 1,
-              column: this.ship[previousArrPosition].column
+              id: arrayOfFields[previousArrPosition].id,
+              row: arrayOfFields[previousArrPosition].row + 1,
+              column: arrayOfFields[previousArrPosition].column
             }
           ];
           break;
         case 2:
           return [
-            ...this.ship,
+            ...arrayOfFields,
             {
-              id: this.id,
-              row: this.ship[previousArrPosition].row,
-              column: this.ship[previousArrPosition].column - 1
+              id: arrayOfFields[previousArrPosition].id,
+              row: arrayOfFields[previousArrPosition].row,
+              column: arrayOfFields[previousArrPosition].column - 1
             }
           ];
           break;
         case 3:
           return [
-            ...this.ship,
+            ...arrayOfFields,
             {
-              id: this.id,
-              row: this.ship[previousArrPosition].row - 1,
-              column: this.ship[previousArrPosition].column
+              id: arrayOfFields[previousArrPosition].id,
+              row: arrayOfFields[previousArrPosition].row - 1,
+              column: arrayOfFields[previousArrPosition].column
             }
           ];
           break;
@@ -112,9 +116,9 @@ function SingleShip(id) {
   }
   
   // Triple ship
-  function TripleShip(id) {
-    DoubleShip.call(this, id);
-    this.oposits = [2, 3, 0, 1];        // indeks tabeli [0,1,2,3]ma watrosc wylosowanego kroku, wartosc w indeksie to krok naprzeciwko ktorego nie mozna wykonac 
+  function TripleAndQuadrupleShip(id, numberOfFields) {
+    DoubleShip.call(this, id, numberOfFields);
+    this.opposites = [2, 3, 0, 1];        // indeks tabeli [0,1,2,3]ma watrosc wylosowanego kroku, wartosc w indeksie to krok naprzeciwko ktorego nie mozna wykonac 
     this.steps = [];
   
     this.setStep = function(step){
@@ -122,15 +126,15 @@ function SingleShip(id) {
     }
   
   
-    this.compareSteps = function(nextStep, lastStep){
-        return this.steps[lastStep] === this.oposits[nextStep];
+    this.compareSteps = function(lastStep, direction){
+        return this.steps[lastStep] === this.opposites[direction];
     }
   }
   
   
   
   // Quadruple ship
-  function QuadrupleShip(id) {
-    TripleShip.call(this, id);
-  }
+  // function QuadrupleShip(id) {
+  //   TripleShip.call(this, id);
+  // }
   
