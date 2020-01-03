@@ -9,7 +9,23 @@ const view = {
       return this.boardFieldsTaken;
     },
   
-    searchField: function(shipFields) {
+    // searchForField: function(newField) {
+    //   // for (let i = 0; i < shipFields.length; i++) {
+    //     for (let k = 0; k < this.boardFieldsTaken.length; k++) {
+    //       if (
+    //         newField.row === this.boardFieldsTaken[k].row &&
+    //         newField.column === this.boardFieldsTaken[k].column
+    //       ) {
+    //         // console.log("zgadzasie");
+    //         return true;
+    //       } else {
+    //         console.log("mozna dodac we view");
+    //       }
+    //     }
+    //   // }
+    // },
+  
+    searchForFields: function(shipFields) {
       for (let i = 0; i < shipFields.length; i++) {
         for (let k = 0; k < this.boardFieldsTaken.length; k++) {
           if (
@@ -24,7 +40,9 @@ const view = {
         }
       }
     },
-  
+
+
+
     addShipFieldsAsTaken: function(data) {
       return [...this.boardFieldsTaken, ...data];
     },
