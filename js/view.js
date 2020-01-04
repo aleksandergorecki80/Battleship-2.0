@@ -113,6 +113,9 @@ const view = {
     displayMessage: function(msg) {
       const messageArea = document.getElementById("messageArea");
       messageArea.innerHTML = msg;
+      setTimeout(function(){
+        messageArea.innerHTML = ' ';
+      }, 3000)
     },
     displayHit: function(location) {
       const cell = document.getElementById(location);
@@ -121,10 +124,16 @@ const view = {
     displayMiss: function(location) {
       const cell = document.getElementById(location);
       cell.setAttribute("class", "miss");
+    },
+
+    blockTheField: function(location){
+      console.log('location',location)
+      const fieldToBlock = document.getElementById(`${location.row}-${location.column}`);
+      fieldToBlock.classList.add("blocked");
     }
   };
   
   // Testing board
-  view.displayMessage("This is a testing message");
+  
   view.displayHit("3-3");
   view.displayMiss("6-4");

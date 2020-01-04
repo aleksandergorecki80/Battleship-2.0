@@ -30,7 +30,6 @@ function SingleShip(id, numberOfFields) {
   }
 
 this.addFieldToShots = function(field){
-  console.log('field to add', field);
   return [...this.spotOnShots, field]
 };
 

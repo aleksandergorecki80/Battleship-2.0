@@ -3,7 +3,7 @@ body {
 }
 #board {
  /* margin: 0 auto; */
- width: 50%;
+ width: 80%;
 }
 
 #game tr td{
@@ -27,4 +27,14 @@ body {
 
 .marked {
     background-color: coral;
+}
+
+.message-area{
+    margin: 0 auto;
+    text-align: center;
+    font-size: xx-large;
+}
+
+.blocked{
+    cursor: not-allowed !important;
 }
