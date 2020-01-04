@@ -16,7 +16,7 @@ function action(row, column){
     const clickedField =  {row, column};
     const clickedFieldRespond = view.findClickedFieldOnList(clickedField);
 
-    console.log(clickedFieldRespond.id);
+    console.log('clickedFieldRespond', clickedFieldRespond);
    
 
 const hitShip = shipsList.find((element)=>{
@@ -25,5 +25,15 @@ const hitShip = shipsList.find((element)=>{
    console.log(hitShip);
 //    console.log(foundShip.ship);
 
+const shipFields = hitShip.getTheShip();
+console.log('shipFields', shipFields);
 
+const spotOnShots = hitShip.addFieldToShots(clickedFieldRespond);
+console.log('coToZwraca', spotOnShots);
+
+hitShip.updateSpotOnShots(spotOnShots);
+console.log('spotOnShots', spotOnShots);
+
+const updatedSpotOnShots = hitShip.getSpotOnShots();
+console.log('updatedSpotOnShots', updatedSpotOnShots);
 }

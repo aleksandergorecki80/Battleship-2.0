@@ -5,7 +5,7 @@ function SingleShip(id, numberOfFields) {
   this.ship = [];
   this.id = id;
   this.numberOfFields = numberOfFields;
-  this.hitShip = [];
+  this.spotOnShots = [];
 
   this.buildNewShip = function() {
     this.ship.row = Math.floor(Math.random() * 10);
@@ -24,6 +24,19 @@ function SingleShip(id, numberOfFields) {
   this.getNumberOfFields = function() {
     return this.numberOfFields;
   };
+
+  this.getSpotOnShots = function(){
+    return this.spotOnShots;
+  }
+
+this.addFieldToShots = function(field){
+  console.log('field to add', field);
+  return [...this.spotOnShots, field]
+};
+
+this.updateSpotOnShots = function(updatedShots){
+  return this.spotOnShots = updatedShots;
+}
 
   //    funkcja zaznacza statek na planszy - do wywalenia
   this.markTheField = function() {
