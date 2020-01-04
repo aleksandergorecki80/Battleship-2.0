@@ -125,7 +125,7 @@ function DoubleShip(id, numberOfFields) {
   };
 }
 
-// Triple ship
+// Triple and Auadruple ship
 function TripleAndQuadrupleShip(id, numberOfFields) {
   DoubleShip.call(this, id, numberOfFields);
   this.opposites = [2, 3, 0, 1]; // indeks tabeli [0,1,2,3]ma watrosc wylosowanego kroku, wartosc w indeksie to krok naprzeciwko ktorego nie mozna wykonac
@@ -138,6 +138,41 @@ function TripleAndQuadrupleShip(id, numberOfFields) {
   this.compareSteps = function(lastStep, direction) {
     return this.steps[lastStep] === this.opposites[direction];
   };
+
+  this.determineShipFields = function(howManyFieldsToAdd){
+
+    let foundInGrid = true;
+    let arrayOfFields = '';
+  do{
+    let direction = '' // choosing diration of marking
+    arrayOfFields = this.buildNewShip();
+  
+  for(let i=0; i<howManyFieldsToAdd; i++){
+    let isAlreadyIn = true;
+    let nextField = '';
+    do {
+    let isNextMovePossible = false;
+    do{
+      direction = this.choseDirection(); // choosing diration of marking
+      isNextMovePossible = this.checkMove(arrayOfFields, direction, i);
+      } while (!isNextMovePossible);
+  
+    nextField = this.assignNewField(arrayOfFields, direction, i);
+    isAlreadyIn = searchInArrayOfFields(arrayOfFields, nextField);
+  
+    }while(isAlreadyIn !== undefined)
+  
+  
+    arrayOfFields = [...arrayOfFields, nextField];
+  }
+  foundInGrid = view.searchForFields(arrayOfFields);
+  } while (foundInGrid)
+
+  return arrayOfFields;
+  }
+  
+
+
 }
 
 // Quadruple ship
