@@ -30,33 +30,30 @@ function shot(row, column) {
 
   const listOfShots = action.getTakenShots();
 
-  const hasBeenTheFieldHitAlready = searchInArrayOfFields(
-    listOfShots,
-    clickedField
-  );
+  const hasBeenTheFieldHitAlready = searchInArrayOfFields(listOfShots, clickedField);
   console.log("hasBeenTheFieldHitAlready", hasBeenTheFieldHitAlready);
 
   if (hasBeenTheFieldHitAlready) {
     view.displayMessage("You already hit here!");
   } else {
     action.setTheShot(listOfShots, clickedField);
+    view.blockTheField(clickedField);
     const newListOfShots = action.getTakenShots();
     console.log("newListOfShots", newListOfShots);
 
     const listOfTakenFields = view.getBoardFieldsTaken();
-    const clickedFieldRespond = searchInArrayOfFields(
-      listOfTakenFields,
-      clickedField
-    );
+    const clickedFieldRespond = searchInArrayOfFields(listOfTakenFields,clickedField);
 
     if (clickedFieldRespond === undefined) {
       view.displayMessage("Pudło");
+      view.displayMiss(clickedField);
     } else {
       const hitShip = shipsList.find(element => {
         return element.id === clickedFieldRespond.id;
       });
       if (hitShip === undefined) {
         view.displayMessage("Pudło");
+        view.displayMiss(clickedField);
       } else {
         //    console.log(foundShip.ship);
 
@@ -68,7 +65,7 @@ function shot(row, column) {
 
         const updatedSpotOnShots = hitShip.getSpotOnShots();
 
-        view.blockTheField(clickedField);
+        
 
         if (updatedSpotOnShots.length === shipFields.length) {
           view.displayMessage("Trafiony, zatopiony");

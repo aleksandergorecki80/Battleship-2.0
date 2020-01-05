@@ -86,15 +86,20 @@ const view = {
       messageArea.innerHTML = msg;
       setTimeout(function(){
         messageArea.innerHTML = ' ';
-      }, 3000)
+      }, 2000)
     },
     displayHit: function(location) {
       const cell = document.getElementById(location);
       cell.setAttribute("class", "hit");
     },
     displayMiss: function(location) {
-      const cell = document.getElementById(location);
-      cell.setAttribute("class", "miss");
+      console.log('location', location);
+      const cell = document.getElementById(`${location.row}-${location.column}`);
+      cell.classList.add("splash");
+      setTimeout(function(){
+        cell.classList.remove("splash");
+        cell.classList.add("miss");
+      }, 2000)
     },
 
     blockTheField: function(location){
@@ -103,7 +108,3 @@ const view = {
     }
   };
   
-  // Testing board
-  
-  view.displayHit("3-3");
-  view.displayMiss("6-4");

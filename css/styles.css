@@ -16,8 +16,17 @@ body {
     border: 1px solid red;
 }
 
+.splash {
+    
+    background: url("../img/splash-small.gif") no-repeat center center;
+    /* background-color: black; */
+    padding: 3px;
+}
+
 .miss {
+    
     background: url("../img/miss.png") no-repeat center center;
+    /* background-color: black; */
     padding: 3px;
 }
 
