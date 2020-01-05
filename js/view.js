@@ -8,23 +8,7 @@ const view = {
     getBoardFieldsTaken: function() {
       return this.boardFieldsTaken;
     },
-  
-    // searchForField: function(newField) {
-    //   // for (let i = 0; i < shipFields.length; i++) {
-    //     for (let k = 0; k < this.boardFieldsTaken.length; k++) {
-    //       if (
-    //         newField.row === this.boardFieldsTaken[k].row &&
-    //         newField.column === this.boardFieldsTaken[k].column
-    //       ) {
-    //         // console.log("zgadzasie");
-    //         return true;
-    //       } else {
-    //         console.log("mozna dodac we view");
-    //       }
-    //     }
-    //   // }
-    // },
-  
+       
     searchForFields: function(shipFields) {
       for (let i = 0; i < shipFields.length; i++) {
         for (let k = 0; k < this.boardFieldsTaken.length; k++) {
@@ -40,8 +24,6 @@ const view = {
         }
       }
     },
-
-
 
     addShipFieldsAsTaken: function(data) {
       return [...this.boardFieldsTaken, ...data];
@@ -95,17 +77,6 @@ const view = {
       return this.surroundings;
     },
   
-    // functions for action section
-    // find clicked element on list
-    findClickedFieldOnList: function(clickedField){
-     return this.boardFieldsTaken.find(element => {
-        if(element.row === clickedField.row && element.column === clickedField.column){
-          return element
-        } 
-      });
-    },
-    //
-  
     markFieldsAsTaken: function(object) {
       console.log(object);
     },
@@ -127,7 +98,6 @@ const view = {
     },
 
     blockTheField: function(location){
-      console.log('location',location)
       const fieldToBlock = document.getElementById(`${location.row}-${location.column}`);
       fieldToBlock.classList.add("blocked");
     }

@@ -1,3 +1,17 @@
+function Action() {
+  this.takenShots = [];
+
+  this.getTakenShots = function() {
+    return this.takenShots;
+  };
+
+  this.setTheShot = function(listOfShots, field) {
+    this.takenShots = [...listOfShots, field];
+  };
+}
+
+const action = new Action();
+
 const game = document.getElementsByClassName("field");
 const gameArray = Array.from(game);
 
@@ -6,47 +20,62 @@ for (let row = 0; row < 10; row++) {
     document
       .getElementById(`${row}-${column}`)
       .addEventListener("click", () => {
-        action(row, column);
+        shot(row, column);
       });
   }
 }
 
-function action(row, column) {
+function shot(row, column) {
   const clickedField = { row, column };
-  const clickedFieldRespond = view.findClickedFieldOnList(clickedField);
 
-  if (clickedFieldRespond === undefined) {
-    view.displayMessage("Pudło");
+  const listOfShots = action.getTakenShots();
+
+  const hasBeenTheFieldHitAlready = searchInArrayOfFields(
+    listOfShots,
+    clickedField
+  );
+  console.log("hasBeenTheFieldHitAlready", hasBeenTheFieldHitAlready);
+
+  if (hasBeenTheFieldHitAlready) {
+    view.displayMessage("You already hit here!");
   } else {
-    const hitShip = shipsList.find(element => {
-      return element.id === clickedFieldRespond.id;
-    });
-    if (hitShip === undefined) {
+    action.setTheShot(listOfShots, clickedField);
+    const newListOfShots = action.getTakenShots();
+    console.log("newListOfShots", newListOfShots);
+
+    const listOfTakenFields = view.getBoardFieldsTaken();
+    const clickedFieldRespond = searchInArrayOfFields(
+      listOfTakenFields,
+      clickedField
+    );
+
+    if (clickedFieldRespond === undefined) {
       view.displayMessage("Pudło");
     } else {
-      
-      //    console.log(foundShip.ship);
-
-      const shipFields = hitShip.getTheShip();
-
-      const spotOnShots = hitShip.addFieldToShots(clickedFieldRespond);
-
-      hitShip.updateSpotOnShots(spotOnShots);
-
-      const updatedSpotOnShots = hitShip.getSpotOnShots();
-
-      
-      view.blockTheField(clickedField);
-
-      if (updatedSpotOnShots.length === shipFields.length) {
-
-        view.displayMessage("Trafiony, zatopiony");
-        
+      const hitShip = shipsList.find(element => {
+        return element.id === clickedFieldRespond.id;
+      });
+      if (hitShip === undefined) {
+        view.displayMessage("Pudło");
       } else {
-        view.displayMessage("Trafiony");
+        //    console.log(foundShip.ship);
+
+        const shipFields = hitShip.getTheShip();
+
+        const spotOnShots = hitShip.addFieldToShots(clickedFieldRespond);
+
+        hitShip.updateSpotOnShots(spotOnShots);
+
+        const updatedSpotOnShots = hitShip.getSpotOnShots();
+
+        view.blockTheField(clickedField);
+
+        if (updatedSpotOnShots.length === shipFields.length) {
+          view.displayMessage("Trafiony, zatopiony");
+        } else {
+          view.displayMessage("Trafiony");
+        }
       }
-      console.log("shipFields=", shipFields);
-      console.log("updatedSpotOnShots", updatedSpotOnShots);
     }
   }
 }

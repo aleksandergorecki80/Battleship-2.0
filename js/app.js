@@ -23,7 +23,7 @@ function addingQuadrupleShip(id) {
   return quadrupleShip;
 }
 
-//     ---   TripleAndQuadrupleShip SHIP    ---
+//     ---   Triple Ship     ---
 function addingTripleShipToTheGrid(id) {
   const tripleShip = new TripleAndQuadrupleShip(id, 3); // initialisation of double ship
   let howManyFieldsToAdd = tripleShip.getNumberOfFields() - 1;
@@ -43,12 +43,6 @@ function addingTripleShipToTheGrid(id) {
   
   tripleShip.markTheField();
   return tripleShip;
-}
-
-function searchInArrayOfFields(arrayOfFields, nextField){
-  return arrayOfFields.find((field)=>{
-    return (field.row === nextField.row && field.column === nextField.column);
-  })
 }
 
 // //     ---  DOUBLE SHIP    ---
@@ -125,22 +119,7 @@ foundInGrid = view.searchForFields(arrayOfFields);
   return singleShip;
 }
 
-function addShipSuroundingToTheBoard(currentShipState) {
-  //
-  const shipSurrounding = view.addSurroundings(currentShipState); // add sourounding of the ship
-  view.pushAllSurroundingsToOneArray(shipSurrounding); // pushes all suroundings into one array
-  const suroundingsArr = view.getSurroundings();
-  view.pushOneOccurrenceOfFieldToSurroundings(suroundingsArr);
-  //
-}
-
-
-
 const shipsList = [];
-
-function addShipToTheShipsList(shipToAdd) {
-  return shipsList.push(shipToAdd);
-}
 
 const ShipQuadrupleIdZero = addingQuadrupleShip(0);
 addShipToTheShipsList(ShipQuadrupleIdZero);
@@ -162,4 +141,4 @@ const singleShipIdEight = addingSingleShipsToTheGrid(8);
 addShipToTheShipsList(singleShipIdEight);
 const singleShipIdNine = addingSingleShipsToTheGrid(9);
 addShipToTheShipsList(singleShipIdNine);
-// console.log(shipsList);
+
