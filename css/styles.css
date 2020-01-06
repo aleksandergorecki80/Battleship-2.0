@@ -31,11 +31,19 @@ body {
 }
 
 .hit {
-    background: url("../img/ship.png") no-repeat center center;
+    background: url("../img/flame-small.gif") no-repeat center center;
+}
+
+.sink {
+    background: url("../img/bubble-small.gif") no-repeat center center;
 }
 
 .marked {
     background-color: coral;
+}
+
+.gone {
+    background-color: black;
 }
 
 .message-area{

@@ -84,22 +84,25 @@ const view = {
     displayMessage: function(msg) {
       const messageArea = document.getElementById("messageArea");
       messageArea.innerHTML = msg;
-      setTimeout(function(){
-        messageArea.innerHTML = ' ';
-      }, 2000)
     },
     displayHit: function(location) {
-      const cell = document.getElementById(location);
-      cell.setAttribute("class", "hit");
+      const cell = document.getElementById(`${location.row}-${location.column}`);
+      cell.classList.add("hit");
     },
     displayMiss: function(location) {
-      console.log('location', location);
       const cell = document.getElementById(`${location.row}-${location.column}`);
       cell.classList.add("splash");
       setTimeout(function(){
         cell.classList.remove("splash");
         cell.classList.add("miss");
-      }, 2000)
+      }, 2000);
+    },
+
+    displaySunk: function(locations){
+      locations.forEach((location)=>{
+        const cell = document.getElementById(`${location.row}-${location.column}`);
+        cell.setAttribute("class", "gone");
+      });
     },
 
     blockTheField: function(location){

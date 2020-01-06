@@ -119,26 +119,35 @@ foundInGrid = view.searchForFields(arrayOfFields);
   return singleShip;
 }
 
-const shipsList = [];
+
 
 const ShipQuadrupleIdZero = addingQuadrupleShip(0);
-addShipToTheShipsList(ShipQuadrupleIdZero);
+action.addShipToTheShipsList(ShipQuadrupleIdZero);
+
 const tripleShipIdOne = addingTripleShipToTheGrid(1);
-addShipToTheShipsList(tripleShipIdOne);
+action.addShipToTheShipsList(tripleShipIdOne);
+
 const tripleShipIdTwo = addingTripleShipToTheGrid(2);
-addShipToTheShipsList(tripleShipIdTwo);
+action.addShipToTheShipsList(tripleShipIdTwo);
+
 const doubleShipIdThree = addingDoubleShipsToTheGrid(3);
-addShipToTheShipsList(doubleShipIdThree);
+action.addShipToTheShipsList(doubleShipIdThree);
+
 const doubleShipIdFour = addingDoubleShipsToTheGrid(4);
-addShipToTheShipsList(doubleShipIdFour);
+action.addShipToTheShipsList(doubleShipIdFour);
+
 const doubleShipIdFive = addingDoubleShipsToTheGrid(5);
-addShipToTheShipsList(doubleShipIdFive);
+action.addShipToTheShipsList(doubleShipIdFive);
+
 const singleShipIdSix = addingSingleShipsToTheGrid(6);
-addShipToTheShipsList(singleShipIdSix);
+action.addShipToTheShipsList(singleShipIdSix);
+
 const singleShipIdSeven = addingSingleShipsToTheGrid(7);
-addShipToTheShipsList(singleShipIdSeven);
+action.addShipToTheShipsList(singleShipIdSeven);
+
 const singleShipIdEight = addingSingleShipsToTheGrid(8);
-addShipToTheShipsList(singleShipIdEight);
+action.addShipToTheShipsList(singleShipIdEight);
+
 const singleShipIdNine = addingSingleShipsToTheGrid(9);
-addShipToTheShipsList(singleShipIdNine);
+action.addShipToTheShipsList(singleShipIdNine);
 

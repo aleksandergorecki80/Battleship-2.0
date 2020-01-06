@@ -1,5 +1,7 @@
 function Action() {
+  this.shipsList = [];
   this.takenShots = [];
+  this.howManySunkShips = 0;
 
   this.getTakenShots = function() {
     return this.takenShots;
@@ -8,9 +10,28 @@ function Action() {
   this.setTheShot = function(listOfShots, field) {
     this.takenShots = [...listOfShots, field];
   };
+
+  this.getShipsList = function(){
+    return this.shipsList;
+  };
+
+  this.addShipToTheShipsList = function(shipToAdd) {
+    this.shipsList.push(shipToAdd);
+  };
+
+  this.getNumberOfSunkShips = function(){
+    return this.howManySunkShips;
+  };
+
+  this.addShipAsSunk = function (){
+    this.howManySunkShips++;
+  }
+
 }
 
 const action = new Action();
+
+
 
 const game = document.getElementsByClassName("field");
 const gameArray = Array.from(game);
@@ -24,6 +45,8 @@ for (let row = 0; row < 10; row++) {
       });
   }
 }
+
+
 
 function shot(row, column) {
   const clickedField = { row, column };
@@ -48,6 +71,7 @@ function shot(row, column) {
       view.displayMessage("Pudło");
       view.displayMiss(clickedField);
     } else {
+      const shipsList = action.getShipsList();
       const hitShip = shipsList.find(element => {
         return element.id === clickedFieldRespond.id;
       });
@@ -68,11 +92,20 @@ function shot(row, column) {
         
 
         if (updatedSpotOnShots.length === shipFields.length) {
-          view.displayMessage("Trafiony, zatopiony");
+          view.displayMessage("Ship sinks");
+          action.addShipAsSunk();
+          const locations = hitShip.getTheShip();
+          view.displaySunk(locations);
         } else {
-          view.displayMessage("Trafiony");
+          view.displayMessage("Ship burns");
+          view.displayHit(clickedField);
         }
       }
     }
+  }
+  const howManySunkShips = action.getNumberOfSunkShips();
+  const shipsList = action.getShipsList();
+  if(howManySunkShips === shipsList.length){
+    view.displayMessage('GAME OVER');
   }
 }

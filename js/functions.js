@@ -15,6 +15,3 @@ function searchInArrayOfFields(arrayOfFields, serchedField){
   }
 
 
-  function addShipToTheShipsList(shipToAdd) {
-    return shipsList.push(shipToAdd);
-  }
