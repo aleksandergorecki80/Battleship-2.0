@@ -81,9 +81,9 @@ const view = {
       console.log(object);
     },
   
-    displayMessage: function(msg) {
-      const messageArea = document.getElementById("messageArea");
-      messageArea.innerHTML = msg;
+    displayMessage: function(li) {
+      const ul = document.getElementById('gameLog').childNodes[0];
+      ul.appendChild(li);
     },
     displayHit: function(location) {
       const cell = document.getElementById(`${location.row}-${location.column}`);
@@ -103,6 +103,12 @@ const view = {
         const cell = document.getElementById(`${location.row}-${location.column}`);
         cell.setAttribute("class", "gone");
       });
+    },
+
+    displayBubble: function(){
+      const bubble = document.getElementById('bubble');
+      bubble.classList.remove('hidden');
+      console.log(bubble);
     },
 
     blockTheField: function(location){

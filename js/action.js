@@ -57,18 +57,21 @@ function shot(row, column) {
   console.log("hasBeenTheFieldHitAlready", hasBeenTheFieldHitAlready);
 
   if (hasBeenTheFieldHitAlready) {
-    view.displayMessage("You already hit here!");
+    const message = buildGameStatusLog(`You already hit there`);
+    view.displayBubble(message);
   } else {
     action.setTheShot(listOfShots, clickedField);
     view.blockTheField(clickedField);
     const newListOfShots = action.getTakenShots();
+    const numberOfShots = newListOfShots.length;
     console.log("newListOfShots", newListOfShots);
 
     const listOfTakenFields = view.getBoardFieldsTaken();
     const clickedFieldRespond = searchInArrayOfFields(listOfTakenFields,clickedField);
 
     if (clickedFieldRespond === undefined) {
-      view.displayMessage("Pudło");
+      const message = buildGameStatusLog(`Shot nr. ${numberOfShots}: ${clickedField.row} - ${clickedField.column} - Pudło`);
+      view.displayMessage(message);
       view.displayMiss(clickedField);
     } else {
       const shipsList = action.getShipsList();
@@ -76,7 +79,8 @@ function shot(row, column) {
         return element.id === clickedFieldRespond.id;
       });
       if (hitShip === undefined) {
-        view.displayMessage("Pudło");
+        const message = buildGameStatusLog(`Shot nr. ${numberOfShots}: ${clickedField.row} - ${clickedField.column} - Pudło`);
+        view.displayMessage(message);
         view.displayMiss(clickedField);
       } else {
         //    console.log(foundShip.ship);
@@ -92,12 +96,14 @@ function shot(row, column) {
         
 
         if (updatedSpotOnShots.length === shipFields.length) {
-          view.displayMessage("Ship sinks");
+          const message = buildGameStatusLog(`Shot nr. ${numberOfShots}: ${clickedField.row} - ${clickedField.column} - Ship sinks`);
+          view.displayMessage(message);
           action.addShipAsSunk();
           const locations = hitShip.getTheShip();
           view.displaySunk(locations);
         } else {
-          view.displayMessage("Ship burns");
+          const message = buildGameStatusLog(`Shot nr. ${numberOfShots}: ${clickedField.row} - ${clickedField.column} - Ship burns`);
+          view.displayMessage(message);
           view.displayHit(clickedField);
         }
       }
