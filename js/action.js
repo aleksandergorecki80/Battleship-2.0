@@ -40,7 +40,7 @@ for (let row = 0; row < 10; row++) {
   for (let column = 0; column < 10; column++) {
     document
       .getElementById(`${row}-${column}`)
-      .addEventListener("click", () => {
+      .addEventListener("click", (event) => {
         shot(row, column);
       });
   }
@@ -57,11 +57,13 @@ function shot(row, column) {
   console.log("hasBeenTheFieldHitAlready", hasBeenTheFieldHitAlready);
 
   if (hasBeenTheFieldHitAlready) {
-    const message = buildGameStatusLog(`You already hit there`);
-    view.displayBubble(message);
+    const message = `You have already hit there`;
+    view.displayBubble(message, event.clientX, event.clientY);
+    console.log(event.clientX);
+    console.log(event.clientY);
   } else {
     action.setTheShot(listOfShots, clickedField);
-    view.blockTheField(clickedField);
+    // view.blockTheField(clickedField);                      /// średnio mi sie podoba
     const newListOfShots = action.getTakenShots();
     const numberOfShots = newListOfShots.length;
     console.log("newListOfShots", newListOfShots);

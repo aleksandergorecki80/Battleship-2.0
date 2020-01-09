@@ -105,10 +105,15 @@ const view = {
       });
     },
 
-    displayBubble: function(){
+    displayBubble: function(message, positionX, positionY){
       const bubble = document.getElementById('bubble');
       bubble.classList.remove('hidden');
-      console.log(bubble);
+      bubble.style.left = `${positionX}px`;
+      bubble.style.top = `${positionY}px`;
+      bubble.innerText = message;
+    setTimeout(()=>{
+      bubble.classList.add('hidden');
+    }, 2000)      
     },
 
     blockTheField: function(location){
