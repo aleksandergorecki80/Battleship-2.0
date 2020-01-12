@@ -72,7 +72,8 @@ function shot(row, column) {
     const clickedFieldRespond = searchInArrayOfFields(listOfTakenFields,clickedField);
 
     if (clickedFieldRespond === undefined) {
-      const message = buildGameStatusLog(`Shot nr. ${numberOfShots}: ${clickedField.row} - ${clickedField.column} - Pudło`);
+      const shotResult = 'Miss'
+      const message = buildGameStatusLog(numberOfShots, clickedField.row, clickedField.column, shotResult);
       view.displayMessage(message);
       view.displayMiss(clickedField);
     } else {
@@ -81,7 +82,8 @@ function shot(row, column) {
         return element.id === clickedFieldRespond.id;
       });
       if (hitShip === undefined) {
-        const message = buildGameStatusLog(`Shot nr. ${numberOfShots}: ${clickedField.row} - ${clickedField.column} - Pudło`);
+        const shotResult = 'Miss'
+        const message = buildGameStatusLog(numberOfShots, clickedField.row, clickedField.column, shotResult);
         view.displayMessage(message);
         view.displayMiss(clickedField);
       } else {
@@ -98,13 +100,15 @@ function shot(row, column) {
         
 
         if (updatedSpotOnShots.length === shipFields.length) {
-          const message = buildGameStatusLog(`Shot nr. ${numberOfShots}: ${clickedField.row} - ${clickedField.column} - Ship sinks`);
+          const shotResult = 'Ship sinks'
+          const message = buildGameStatusLog(numberOfShots, clickedField.row, clickedField.column, shotResult);
           view.displayMessage(message);
           action.addShipAsSunk();
           const locations = hitShip.getTheShip();
           view.displaySunk(locations);
         } else {
-          const message = buildGameStatusLog(`Shot nr. ${numberOfShots}: ${clickedField.row} - ${clickedField.column} - Ship burns`);
+          const shotResult = 'Ship burns'
+          const message = buildGameStatusLog(numberOfShots, clickedField.row, clickedField.column, shotResult);
           view.displayMessage(message);
           view.displayHit(clickedField);
         }
@@ -113,6 +117,8 @@ function shot(row, column) {
   }
   const howManySunkShips = action.getNumberOfSunkShips();
   const shipsList = action.getShipsList();
+  console.log(howManySunkShips);
+  console.log(shipsList.length);
   if(howManySunkShips === shipsList.length){
     view.displayMessage('GAME OVER');
   }

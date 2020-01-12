@@ -82,7 +82,7 @@ const view = {
     },
   
     displayMessage: function(li) {
-      const ul = document.getElementById('gameLog').childNodes[0];
+      const ul = document.getElementById('gameLog');
       ul.appendChild(li);
     },
     displayHit: function(location) {

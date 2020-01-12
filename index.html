@@ -4,19 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/skeleton.css">
     <link rel="stylesheet" href="css/grid.css">
     <link rel="stylesheet" href="css/styles.css">
     <title>Battleship 2.0</title>
 </head>
 <body>
-    <div class="speech-bubble hidden" id='bubble'></div>
-    <div class="row">
-        <div id="board" class="col-8">
-            <table id="game" cellspacing="0"></table>
-            <div id="messageArea" class="message-area"></div>
+    <div class="container">
+        <div class="buttons" id='buttons'>
+            <input type="submit" value="Start game" class="start-game button button-primary">
+            <input type="submit" value="Stop the game" class="refresh button button-primary" disabled>
         </div>
-        <div class="game-log col-4" id="gameLog"><ul></ul></div>
+        <div class="speech-bubble hidden" id='bubble'></div>
+        <div id="pirateShip">
+            <img src="img/pirate-ship.png" alt="Pirate ship 1001freedownloads.com">
+        </div>
+    
+        <div class="hidden" id="gameContainer">
+            <div class="row">
+                <div id="board" class="board col-8">
+                    <table id="game" cellspacing="0"></table>
+                </div>
+                <div class="game-log col-4">
+                    <h5>Game Log</h5>
+                    <ul id="gameLog"></ul>
+                </div>
+            </div>
+        </div>
     </div>
+
+
     
     <script type="text/javascript" src="js/functions.js"></script>
     <script type="text/javascript" src="js/grid.js"></script>
