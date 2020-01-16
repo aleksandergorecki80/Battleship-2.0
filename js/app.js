@@ -48,16 +48,16 @@ button.addEventListener('click', (e)=> {
 
 
         button.value = 'stop';
-        button.innerText = 'Stop the game';
-        isGameRun = switchTheStatus();
-        console.log(isGameRun);
+        button.innerText = 'Restart the game';
+        // isGameRun = Buttons.switchTheStatus();
+
     } else {
         button.value = 'start';
         button.innerText = 'Sart the game';
         const gameOverMessage = {content: 'GAME OVER'}
         Modal.openModal(gameOverMessage);
-        isGameRun = switchTheStatus();
-        console.log(isGameRun);
+        // isGameRun = Buttons.switchTheStatus();
+
     }
     
 });

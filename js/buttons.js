@@ -1,37 +1,25 @@
-
-let isGameRun = false;
-
-
-function buttonTemplate(btnValue, btnText){
-    return `
-    <button type="submit" value=${btnValue} id="startReloadGame">${btnText}</button>
-    `;
-}
-
-function insertButton(btnValue, btnText){
-    const btnTemplate = buttonTemplate(btnValue, btnText);
-    document.body.insertAdjacentHTML('afterbegin', btnTemplate);
-}
-
-
-function switchTheStatus(){
-    return !isGameRun;
-}
-
-let btnValue = '';
-let btnText = '';
-if(isGameRun){
-    btnValue = 'stop';
-    btnText = 'Stop the game';
-} else {
-    btnValue = `start`;
-    btnText = 'Start the game';
-}
-
-insertButton(btnValue, btnText);
+function Buttons() {
+    
+    this.buttonTemplate = function(btnValue, btnText){
+        return `
+        <button type="submit" value=${btnValue} id="startReloadGame">${btnText}</button>
+        `;
+    };
+    
+    this.insertButton = function(btnValue, btnText){
+        const btnTemplate = this.buttonTemplate(btnValue, btnText);
+        document.body.insertAdjacentHTML('afterbegin', btnTemplate);
+    },
+    
+    this.switchTheStatus = function(){
+        return !this.isGameRun;
+    }
+};
 
 
-
-
-console.log(btnValue);
+// Inserting the start/restart button
+const btnValue = `start`;
+const btnText = 'Start the game';
+startReloadGame = new Buttons();
+startReloadGame.insertButton(btnValue, btnText);
 
