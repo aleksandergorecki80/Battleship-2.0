@@ -1,0 +1,40 @@
+const Modal = {
+    init() {
+        document.body.addEventListener('click', e=> {
+            if(e.target.classList.contains('modal_close')){
+                this.closeModal(e.target);
+            }
+        });
+        
+    },
+    getHtmlTemplate(modalOptions){
+        return `
+            <div class="modal_overlay">
+                <div class="modal_window">
+                    <div class="modal_titlebar">
+                        <span class='modal_title'> ${modalOptions.title} </span>
+                    </div>
+                    <div class="modal_content">${modalOptions.content}</div>
+                    <button class="modal_close">Close</button>
+                </div>
+            </div>
+            `;
+    },
+    openModal(modalOptions = {}) {
+        modalOptions = Object.assign({
+            title: 'Modal title',
+            content: 'Modal Content'
+        }, modalOptions);
+        const modalTemplate = this.getHtmlTemplate(modalOptions);
+        document.body.insertAdjacentHTML('afterbegin', modalTemplate);
+    },
+    closeModal(closeButton){
+        console.log('closeModal')
+        const modalOverlay = closeButton.parentElement.parentElement;
+        // modalOverlay.parentElement.removeChild(modalOverlay);
+        document.body.removeChild(modalOverlay);
+        location.reload();
+    }
+};
+
+document.addEventListener('DOMContentLoaded', ()=> Modal.init());

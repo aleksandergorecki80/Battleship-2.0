@@ -8,13 +8,15 @@
     <link rel="stylesheet" href="css/skeleton.css">
     <link rel="stylesheet" href="css/grid.css">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/modal.css">
     <title>Battleship 2.0</title>
 </head>
 <body>
+
     <div class="container">
         <div class="buttons" id='buttons'>
-            <input type="submit" value="Start game" class="start-game button button-primary">
-            <input type="submit" value="Stop the game" class="refresh button button-primary" disabled>
+            <!-- <input type="submit" value="Start game" class="start-game button button-primary">
+            <input type="submit" value="Stop the game" class="refresh button button-primary" disabled> -->
         </div>
         <div class="speech-bubble hidden" id='bubble'></div>
         <div id="pirateShip">
@@ -27,7 +29,7 @@
                     <table id="game" cellspacing="0"></table>
                 </div>
                 <div class="game-log col-4">
-                    <h5>Game Log</h5>
+                    <h6>GAME LOG</h6>
                     <ul id="gameLog"></ul>
                 </div>
             </div>
@@ -36,6 +38,8 @@
 
 
     
+    <script type="text/javascript" src="js/modal.js"></script>
+    <script type="text/javascript" src="js/buttons.js"></script>
     <script type="text/javascript" src="js/functions.js"></script>
     <script type="text/javascript" src="js/grid.js"></script>
     <script type="text/javascript" src="js/view.js"></script>

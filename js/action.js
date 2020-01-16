@@ -120,6 +120,8 @@ function shot(row, column) {
   console.log(howManySunkShips);
   console.log(shipsList.length);
   if(howManySunkShips === shipsList.length){
-    view.displayMessage('GAME OVER');
+    const gameOverMessage = {content: 'GAME OVER'}
+    Modal.openModal(gameOverMessage);
+    console.log('GAME OVER');
   }
 }
