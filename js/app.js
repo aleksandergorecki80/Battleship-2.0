@@ -1,6 +1,4 @@
 //  ----------    OPENING PAGE ------
-// document.addEventListener('DOMContentLoaded', loadWelcomePage);
-
 
 const button = document.getElementById('startReloadGame');
 
@@ -61,54 +59,6 @@ button.addEventListener('click', (e)=> {
     }
     
 });
-
-
-// const startGameButton = document.querySelector('.start-game');
-// startGameButton.addEventListener('click', ()=>{
-//   // disable the start button
-//   startGameButton.disabled = true;
-//   reloadGameButton.disabled = false;
-
-//   const gameContainer = document.querySelector('#gameContainer');
-//   const pirateShip = document.querySelector('#pirateShip');
-  
-//   gameContainer.classList.remove('hidden');
-//   pirateShip.classList.add('hidden');
-
-//   // const ShipQuadrupleIdZero = addingQuadrupleShip(0);
-//   // action.addShipToTheShipsList(ShipQuadrupleIdZero);
-  
-//   // const tripleShipIdOne = addingTripleShipToTheGrid(1);
-//   // action.addShipToTheShipsList(tripleShipIdOne);
-  
-//   // const tripleShipIdTwo = addingTripleShipToTheGrid(2);
-//   // action.addShipToTheShipsList(tripleShipIdTwo);
-  
-//   // const doubleShipIdThree = addingDoubleShipsToTheGrid(3);
-//   // action.addShipToTheShipsList(doubleShipIdThree);
-  
-//   // const doubleShipIdFour = addingDoubleShipsToTheGrid(4);
-//   // action.addShipToTheShipsList(doubleShipIdFour);
-  
-//   // const doubleShipIdFive = addingDoubleShipsToTheGrid(5);
-//   // action.addShipToTheShipsList(doubleShipIdFive);
-  
-//   // const singleShipIdSix = addingSingleShipsToTheGrid(6);
-//   // action.addShipToTheShipsList(singleShipIdSix);
-  
-//   // const singleShipIdSeven = addingSingleShipsToTheGrid(7);
-//   // action.addShipToTheShipsList(singleShipIdSeven);
-  
-//   // const singleShipIdEight = addingSingleShipsToTheGrid(8);
-//   // action.addShipToTheShipsList(singleShipIdEight);
-  
-//   const singleShipIdNine = addingSingleShipsToTheGrid(9);
-//   action.addShipToTheShipsList(singleShipIdNine);
-// });
-
-
-
-
 
 // -------- Setig up the ships on the grid ------
 

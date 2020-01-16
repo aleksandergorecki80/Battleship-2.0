@@ -44,6 +44,15 @@ function buildGameStatusLog(numberOfShots, row, column, shotResult) {
 
 
 
+function printhowToPlay(){
+  const howToPlayInfo = {content: `Wyjście Wielkiej Brytanii z Unii 
+  Europejskiej jest dla Wspólnoty sygnałem alarmowym – powiedziała kanclerz 
+  Niemiec Angela Merkel w opublikowanym w czwartek wywiadzie dla brytyjskiego 
+  dziennika „Financial Times”. Przy okazji powiedziała między wierszami, że Unia 
+  Europejska to niemieckie narzędzie geopolityczne.`}
+  Modal.openModal(howToPlayInfo);
+}
+
 //      cos trzeba z tym zrobić
 function loadWelcomePage(){
   const startGameButton = document.createElement('button');

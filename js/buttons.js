@@ -1,25 +1,49 @@
 function Buttons() {
     
-    this.buttonTemplate = function(btnValue, btnText){
+    this.buttonTemplate = function(buttonValue, buttonText, buttonId){
         return `
-        <button type="submit" value=${btnValue} id="startReloadGame">${btnText}</button>
+        <button type="submit" 
+            value=${buttonValue} 
+            id=${buttonId}
+            class="btn red"
+            >
+            ${buttonText}
+        </button>
         `;
     };
     
-    this.insertButton = function(btnValue, btnText){
-        const btnTemplate = this.buttonTemplate(btnValue, btnText);
-        document.body.insertAdjacentHTML('afterbegin', btnTemplate);
-    },
-    
-    this.switchTheStatus = function(){
-        return !this.isGameRun;
+    this.insertButton = function(buttonValue, buttonText, buttonId){
+        const btnTemplate = this.buttonTemplate(buttonValue, buttonText, buttonId);
+        document.getElementById('buttons').insertAdjacentHTML('beforeend', btnTemplate);
     }
+    
+    // this.switchTheStatus = function(){
+    //     return !this.isGameRun;
+    // }
 };
 
 
-// Inserting the start/restart button
-const btnValue = `start`;
-const btnText = 'Start the game';
-startReloadGame = new Buttons();
-startReloadGame.insertButton(btnValue, btnText);
+// Inserting the buttons
 
+const startReloadGameValue = `start`;
+const startReloadGameText = 'Start the game';
+const startReloadGameId = 'startReloadGame';
+const startReloadGame = new Buttons();
+startReloadGame.insertButton(startReloadGameValue, startReloadGameText, startReloadGameId);
+
+
+
+const howToPlayValue = `howToPlay`;
+const howToPlayText = 'How to play';
+const howToPlayId = 'howToPlay';
+const howToPlay = new Buttons();
+howToPlay.insertButton(howToPlayValue, howToPlayText, howToPlayId);
+
+const howToPlayButton = document.getElementById('howToPlay');
+howToPlayButton.addEventListener('click', printhowToPlay);
+
+const aboutValue = `about`;
+const aboutText = 'About the game';
+const aboutId = 'about';
+const about = new Buttons();
+about.insertButton(aboutValue, aboutText, aboutId);
