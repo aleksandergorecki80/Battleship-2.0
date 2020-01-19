@@ -121,6 +121,7 @@ function shot(row, column) {
   console.log(shipsList.length);
   if(howManySunkShips === shipsList.length){
     const gameOverMessage = {content: 'GAME OVER'}
+    Modal.reloadTheGame = true;
     Modal.openModal(gameOverMessage);
     console.log('GAME OVER');
   }

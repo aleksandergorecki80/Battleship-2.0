@@ -25,6 +25,7 @@ function Buttons() {
 
 // Inserting the buttons
 
+//  START / RELOAD
 const startReloadGameValue = `start`;
 const startReloadGameText = 'Start the game';
 const startReloadGameId = 'startReloadGame';
@@ -33,17 +34,20 @@ startReloadGame.insertButton(startReloadGameValue, startReloadGameText, startRel
 
 
 
+//  HOW TO PLAY
 const howToPlayValue = `howToPlay`;
 const howToPlayText = 'How to play';
 const howToPlayId = 'howToPlay';
 const howToPlay = new Buttons();
 howToPlay.insertButton(howToPlayValue, howToPlayText, howToPlayId);
-
 const howToPlayButton = document.getElementById('howToPlay');
 howToPlayButton.addEventListener('click', printhowToPlay);
+
 
 const aboutValue = `about`;
 const aboutText = 'About the game';
 const aboutId = 'about';
 const about = new Buttons();
 about.insertButton(aboutValue, aboutText, aboutId);
+const aboutButton = document.getElementById('about');
+aboutButton.addEventListener('click', printAboutTheGame);

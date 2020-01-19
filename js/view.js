@@ -91,11 +91,12 @@ const view = {
     },
     displayMiss: function(location) {
       const cell = document.getElementById(`${location.row}-${location.column}`);
-      cell.classList.add("splash");
-      setTimeout(function(){
-        cell.classList.remove("splash");
-        cell.classList.add("miss");
-      }, 2000);
+      // cell.classList.add("splash");
+      // setTimeout(function(){
+      //   cell.classList.remove("splash");
+        
+      // }, 2000);
+      cell.classList.add("miss");
     },
 
     displaySunk: function(locations){

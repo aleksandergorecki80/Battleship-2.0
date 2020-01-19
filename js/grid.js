@@ -18,7 +18,7 @@ function printRows(id) {
       tr.appendChild(td);
       td.classList.add('field');
       td.id = `${trId}-${i}`;
-      td.innerHTML = `${trId}-${i}`; // to do usunięcia
+      // td.innerHTML = `${trId}-${i}`; // to do usunięcia
     }
   }
   

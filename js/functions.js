@@ -82,6 +82,26 @@ function printhowToPlay(){
   Modal.openModal(howToPlayInfo);
 }
 
+function printAboutTheGame(){
+  const aboutTheGame = {
+    content: `
+    <p>Batelship 2.0</p>
+    <p>Created by: Aleksander Gorecki</p>
+    <p>aleksandergorecki80@gmail.com</p>
+    `
+  };
+  Modal.openModal(aboutTheGame);
+}
+
+
+
+
+
+
+
+
+
+
 //      cos trzeba z tym zrobić
 function loadWelcomePage(){
   const startGameButton = document.createElement('button');

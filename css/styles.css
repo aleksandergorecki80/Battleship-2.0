@@ -10,7 +10,7 @@ body {
 
         cursor: pointer;
         border: 1px solid white;
-        padding: 20px;
+        padding: 30px;
 }
 #game {
     border: 1px solid red;
@@ -28,6 +28,15 @@ body {
     background: url("../img/miss.png") no-repeat center center;
     /* background-color: black; */
     padding: 3px;
+}
+
+.miss::before {
+	content: "";
+	position: absolute;
+    background-color: palevioletred;
+    padding: 10px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .hit {
@@ -155,3 +164,4 @@ h6 {
     background-color:indianred;
     color:white !important;
 }
+
