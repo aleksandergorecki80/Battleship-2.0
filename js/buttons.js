@@ -5,7 +5,7 @@ function Buttons() {
         <button type="submit" 
             value=${buttonValue} 
             id=${buttonId}
-            class="btn red"
+            class="btn"
             >
             ${buttonText}
         </button>

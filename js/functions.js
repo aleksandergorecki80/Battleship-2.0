@@ -45,11 +45,40 @@ function buildGameStatusLog(numberOfShots, row, column, shotResult) {
 
 
 function printhowToPlay(){
-  const howToPlayInfo = {content: `Wyjście Wielkiej Brytanii z Unii 
-  Europejskiej jest dla Wspólnoty sygnałem alarmowym – powiedziała kanclerz 
-  Niemiec Angela Merkel w opublikowanym w czwartek wywiadzie dla brytyjskiego 
-  dziennika „Financial Times”. Przy okazji powiedziała między wierszami, że Unia 
-  Europejska to niemieckie narzędzie geopolityczne.`}
+  const howToPlayInfo = {
+    content: `
+      <p>The player plays against computer. The game is over when all computer's ship are sunk.</p>
+      <p><b>Computer's fleet:</b></p>
+        <table>
+          <tr>
+            <th>Size</th>
+            <th>Class of ship</th>
+            <th>Quantity</th>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Battleship</td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Cruiser</td>
+            <td>2</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Submarine</td>
+            <td>3</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>Destroyer</td>
+            <td>4</td>
+          </tr>
+        </table>
+      
+      <p>The sheeps can be positioned along the grid's edge.</p>
+  `};
   Modal.openModal(howToPlayInfo);
 }
 

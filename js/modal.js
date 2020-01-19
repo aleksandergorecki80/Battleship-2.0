@@ -1,4 +1,5 @@
 const Modal = {
+    reloadTheGame: false,
     init: function() {
         document.body.addEventListener('click', e=> {
             if(e.target.classList.contains('modal_close')){
@@ -27,13 +28,16 @@ const Modal = {
         }, modalOptions);
         const modalTemplate = this.getHtmlTemplate(modalOptions);
         document.body.insertAdjacentHTML('afterbegin', modalTemplate);
+        console.log(this.reloadTheGame);
     },
     closeModal(closeButton){
-        console.log('closeModal')
         const modalOverlay = closeButton.parentElement.parentElement;
         // modalOverlay.parentElement.removeChild(modalOverlay);
         document.body.removeChild(modalOverlay);
-        location.reload();
+        if(this.reloadTheGame === true){
+            location.reload();
+        }
+        
     }
 };
 
