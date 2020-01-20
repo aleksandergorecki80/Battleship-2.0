@@ -12,9 +12,6 @@ const Modal = {
         return `
             <div class="modal_overlay">
                 <div class="modal_window">
-                    <div class="modal_titlebar">
-                        <span class='modal_title'> ${modalOptions.title} </span>
-                    </div>
                     <div class="modal_content">${modalOptions.content}</div>
                     <button class="modal_close">Close</button>
                 </div>
@@ -23,7 +20,6 @@ const Modal = {
     },
     openModal(modalOptions = {}) {
         modalOptions = Object.assign({
-            title: 'Modal title',
             content: 'Modal Content'
         }, modalOptions);
         const modalTemplate = this.getHtmlTemplate(modalOptions);

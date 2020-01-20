@@ -23,28 +23,53 @@ body {
     padding: 3px;
 }
 
-.miss {
+/* .miss {
     
     background: url("../img/miss.png") no-repeat center center;
-    /* background-color: black; */
+    background-color: black;
     padding: 3px;
-}
+} */
 
 .miss::before {
+	content: "X";
+	position: absolute;
+    /* background-color: palevioletred; */
+    padding: 10px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    font-size: xx-large;
+}
+
+
+
+/* .hit {
+    background: url("../img/burn.png") no-repeat center center;
+} */
+
+.hit::before {
 	content: "";
 	position: absolute;
-    background-color: palevioletred;
+    background-color: blue;
     padding: 10px;
     border-radius: 50%;
     transform: translate(-50%, -50%);
 }
 
-.hit {
-    background: url("../img/flame-small.gif") no-repeat center center;
+.modal-hit{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: blue;
+    border-radius: 50%;
+    transform: translate(0%, 20%);
 }
 
-.sink {
-    background: url("../img/bubble-small.gif") no-repeat center center;
+.modal-sink{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: green;
+    transform: translate(0%, 20%);
 }
 
 .marked {
@@ -52,7 +77,7 @@ body {
 }
 
 .gone {
-    background-color: black;
+    background-color: green;
 }
 
 .message-area{
@@ -65,12 +90,16 @@ body {
     cursor: not-allowed !important;
 }
 
+h6 {
+    margin-left: 10px;
+}
 .game-log  {
-
-  
+    height: 600px;
     /* Required for text-overflow to do anything */
     white-space: nowrap;
-    overflow: hidden;
+    overflow: scroll;
+    overflow-x: hidden;
+    text-overflow: ellipsis; 
   }
 
 ul {
@@ -110,18 +139,18 @@ li:nth-child(odd){
 .speech-bubble {
     /* position: relative; */
     position: fixed;
-    background: #00aabb;
+    background-color: #dbdbdb;
     border-radius: .4em;
     width: 260px;
     padding: 10px 10px;
     margin: 1em 0;
     text-align: center;
-    color: white;
+    color: black;
     font-weight: bold;
     font-size: 200%;
-    text-shadow: 0 -0.05em 0.1em rgba(0,0,0,.3);
     transform: translate(-50%, -250%);
     font-size: large;
+    z-index: 100;
 }
 
 .speech-bubble:after {
@@ -132,7 +161,7 @@ li:nth-child(odd){
     width: 0;
     height: 0;
     border: 0.563em solid transparent;
-    border-top-color: #00aabb;
+    border-top-color: #dbdbdb;
     border-bottom: 0;
     margin-left: -0.562em;
     margin-bottom: -0.562em;
@@ -164,4 +193,3 @@ h6 {
     background-color:indianred;
     color:white !important;
 }
-

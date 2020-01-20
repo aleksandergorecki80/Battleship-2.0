@@ -37,13 +37,6 @@ function buildGameStatusLog(numberOfShots, row, column, shotResult) {
   return li;
 }
 
-
-
-
-
-
-
-
 function printhowToPlay(){
   const howToPlayInfo = {
     content: `
@@ -78,6 +71,9 @@ function printhowToPlay(){
         </table>
       
       <p>The sheeps can be positioned along the grid's edge.</p>
+     <p> X - miss</p>
+      <p><span class="modal-hit"></span> - Hit,  not sink.<p>
+      <span class="modal-sink"></span> - Ship sinks.
   `};
   Modal.openModal(howToPlayInfo);
 }
