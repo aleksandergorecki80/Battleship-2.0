@@ -29,7 +29,7 @@ function buildGameStatusLog(numberOfShots, row, column, shotResult) {
       break;
     
   };
-  const logMessage = `${numberOfShots}. Field ${row}-${column} : ${shotResult}`
+  const logMessage = `${numberOfShots}. Field R${row+1}-C${column+1} : ${shotResult}`
   const li = document.createElement("li");
   //create text node and append
   li.appendChild(document.createTextNode(logMessage));
