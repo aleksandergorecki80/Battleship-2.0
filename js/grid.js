@@ -5,7 +5,6 @@ function printRows(id) {
     const game = document.getElementById("game");
     var tr = document.createElement("tr");
     game.appendChild(tr);
-    // div.classList.add("field");
     tr.id = id;
     printColumns(tr.id); // Passing row id
   }
@@ -18,7 +17,6 @@ function printRows(id) {
       tr.appendChild(td);
       td.classList.add('field');
       td.id = `${trId}-${i}`;
-      // td.innerHTML = `${trId}-${i}`; // to do usunięcia
     }
   }
   

@@ -17,9 +17,6 @@ function Buttons() {
         document.getElementById('buttons').insertAdjacentHTML('beforeend', btnTemplate);
     }
     
-    // this.switchTheStatus = function(){
-    //     return !this.isGameRun;
-    // }
 };
 
 

@@ -16,10 +16,8 @@ const view = {
             shipFields[i].row === this.boardFieldsTaken[k].row &&
             shipFields[i].column === this.boardFieldsTaken[k].column
           ) {
-            // console.log("zgadzasie");
             return true;
           } else {
-            // console.log("mozna dodac");
           }
         }
       }
@@ -77,10 +75,7 @@ const view = {
       return this.surroundings;
     },
   
-    markFieldsAsTaken: function(object) {
-      console.log(object);
-    },
-  
+
     displayMessage: function(li) {
       const ul = document.getElementById('gameLog');
       ul.appendChild(li);
@@ -91,11 +86,6 @@ const view = {
     },
     displayMiss: function(location) {
       const cell = document.getElementById(`${location.row}-${location.column}`);
-      // cell.classList.add("splash");
-      // setTimeout(function(){
-      //   cell.classList.remove("splash");
-        
-      // }, 2000);
       cell.classList.add("miss");
     },
 

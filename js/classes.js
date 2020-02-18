@@ -29,22 +29,13 @@ function SingleShip(id, numberOfFields) {
     return this.spotOnShots;
   }
 
-this.addFieldToShots = function(field){
-  return [...this.spotOnShots, field]
-};
-
-this.updateSpotOnShots = function(updatedShots){
-  return this.spotOnShots = updatedShots;
-}
-
-  //    funkcja zaznacza statek na planszy - do wywalenia
-  this.markTheField = function() {
-    this.ship.forEach(cellId => {
-      document
-        .getElementById(`${cellId.row}-${cellId.column}`)
-        .classList.add("marked");
-    });
+  this.addFieldToShots = function(field){
+    return [...this.spotOnShots, field]
   };
+
+  this.updateSpotOnShots = function(updatedShots){
+    return this.spotOnShots = updatedShots;
+  }
 }
 
 // Double ship
@@ -55,34 +46,10 @@ function DoubleShip(id, numberOfFields) {
       this.choseDirection = function() {
         return Math.floor(Math.random() * 4);
       };
-  // // Function determins next moves pattern 0-right 1-down 2-left 3-up
-  // this.choseDirection = function() {
-  //   let nextMove = "";
-  //   let moves = [];
-  //   for (; moves.length < 4; ) {
-  //     nextMove = Math.floor(Math.random() * 4);
-
-  //     let checkMove = moves.find(move => {
-  //       if (nextMove === move) {
-  //         return true;
-  //       }
-  //     });
-
-  //     if (checkMove !== undefined) {
-  //       // console.log("nie mozna dodac");
-  //     } else {
-  //       // console.log("mozna dodac");
-  //       moves.push(nextMove);
-  //     }
-  //   }
-
-  //   return moves;
-  // };
 
   // Check if a move is posible
   this.checkMove = function(arrayOfFields, direction, previousArrPosition) {
-    // console.log('checkMove =', arrayOfFields, direction, previousArrPosition)
-    switch (direction) {
+     switch (direction) {
       case 0:
         return arrayOfFields[previousArrPosition].column + 1 < 10;
         break;
@@ -186,8 +153,3 @@ function TripleAndQuadrupleShip(id, numberOfFields) {
 
 
 }
-
-// Quadruple ship
-// function QuadrupleShip(id) {
-//   TripleShip.call(this, id);
-// }

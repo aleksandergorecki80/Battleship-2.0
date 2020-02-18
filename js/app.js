@@ -43,23 +43,14 @@ button.addEventListener('click', (e)=> {
       const singleShipIdNine = addingSingleShipsToTheGrid(9);
       action.addShipToTheShipsList(singleShipIdNine);
       //---
-
-
         button.value = 'stop';
         button.innerText = 'Restart the game';
         button.classList.add('restart');
-        // isGameRun = Buttons.switchTheStatus();
-
     } else {
         button.value = 'start';
-        // button.innerText = 'Sart the game';
         const gameOverMessage = {content: 'GAME OVER'}
         Modal.reloadTheGame = true;
         Modal.openModal(gameOverMessage);
-        
-        console.log('this is from app = ' , Modal.reloadTheGame);
-        // isGameRun = Buttons.switchTheStatus();
-
     }
     
 });
@@ -85,7 +76,6 @@ function addingQuadrupleShip(id) {
   //Add fields around
   addShipSuroundingToTheBoard(shipFields);
   
-  quadrupleShip.markTheField();
   return quadrupleShip;
 }
 
@@ -107,7 +97,6 @@ function addingTripleShipToTheGrid(id) {
   //Add fields around
   addShipSuroundingToTheBoard(shipFields);
   
-  tripleShip.markTheField();
   return tripleShip;
 }
 
@@ -154,8 +143,6 @@ foundInGrid = view.searchForFields(arrayOfFields);
   //Add fields around
   addShipSuroundingToTheBoard(shipFields);
   
-  doubleShip.markTheField();
-
   return doubleShip;
 }
 
@@ -181,12 +168,7 @@ foundInGrid = view.searchForFields(arrayOfFields);
   //Add fields around
   addShipSuroundingToTheBoard(shipFields);
   
-  singleShip.markTheField();
   return singleShip;
 }
-
-
-
-
 
 

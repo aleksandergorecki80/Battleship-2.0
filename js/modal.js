@@ -24,7 +24,6 @@ const Modal = {
         }, modalOptions);
         const modalTemplate = this.getHtmlTemplate(modalOptions);
         document.body.insertAdjacentHTML('afterbegin', modalTemplate);
-        console.log(this.reloadTheGame);
     },
     closeModal(closeButton){
         const modalOverlay = closeButton.parentElement.parentElement;

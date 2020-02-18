@@ -54,20 +54,14 @@ function shot(row, column) {
   const listOfShots = action.getTakenShots();
 
   const hasBeenTheFieldHitAlready = searchInArrayOfFields(listOfShots, clickedField);
-  console.log("hasBeenTheFieldHitAlready", hasBeenTheFieldHitAlready);
-
+  
   if (hasBeenTheFieldHitAlready) {
     const message = `You have already hit there`;
     view.displayBubble(message, event.clientX, event.clientY);
-    console.log(event.clientX);
-    console.log(event.clientY);
   } else {
     action.setTheShot(listOfShots, clickedField);
-    // view.blockTheField(clickedField);                      /// średnio mi sie podoba
     const newListOfShots = action.getTakenShots();
     const numberOfShots = newListOfShots.length;
-    console.log("newListOfShots", newListOfShots);
-
     const listOfTakenFields = view.getBoardFieldsTaken();
     const clickedFieldRespond = searchInArrayOfFields(listOfTakenFields,clickedField);
 
@@ -87,17 +81,10 @@ function shot(row, column) {
         view.displayMessage(message);
         view.displayMiss(clickedField);
       } else {
-        //    console.log(foundShip.ship);
-
         const shipFields = hitShip.getTheShip();
-
         const spotOnShots = hitShip.addFieldToShots(clickedFieldRespond);
-
         hitShip.updateSpotOnShots(spotOnShots);
-
         const updatedSpotOnShots = hitShip.getSpotOnShots();
-
-        
 
         if (updatedSpotOnShots.length === shipFields.length) {
           const shotResult = 'Ship sinks'
@@ -117,12 +104,9 @@ function shot(row, column) {
   }
   const howManySunkShips = action.getNumberOfSunkShips();
   const shipsList = action.getShipsList();
-  console.log(howManySunkShips);
-  console.log(shipsList.length);
   if(howManySunkShips === shipsList.length){
     const gameOverMessage = {content: 'GAME OVER'}
     Modal.reloadTheGame = true;
     Modal.openModal(gameOverMessage);
-    console.log('GAME OVER');
   }
 }

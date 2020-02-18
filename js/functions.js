@@ -90,14 +90,6 @@ function printAboutTheGame(){
 }
 
 
-
-
-
-
-
-
-
-
 //      cos trzeba z tym zrobić
 function loadWelcomePage(){
   const startGameButton = document.createElement('button');
